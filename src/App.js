@@ -18,6 +18,10 @@ export default App;
 
 const ChapterReducer = function (state, action) {
   switch (action.type) {
+    case "TOGGLE_READY":
+      return state.map((chapter, idx) =>
+        idx === action.idx ? { ...chapter, ready: !chapter.ready } : chapter
+      );
     default:
       return state;
   }
@@ -34,12 +38,13 @@ const ContentList = () => {
 
   return (
     <>
-      {chapters.map((chap) => (
-        <div>
+      {chapters.map((chap, idx) => (
+        <div key={idx}>
           <h2>{chap.title}</h2>
           <p>{chap.text}</p>
           <Form.Group controlId="ready">
             <Form.Check
+              onChange={() => dispatch({ type: "TOGGLE_READY", idx })}
               type="checkbox"
               label="Mark as ready"
               name="ready"
