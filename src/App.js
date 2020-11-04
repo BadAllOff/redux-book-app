@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import React, { useReducer } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
 
 function App() {
   return (
@@ -22,6 +22,8 @@ const ChapterReducer = function (state, action) {
       return state.map((chapter, idx) =>
         idx === action.idx ? { ...chapter, ready: !chapter.ready } : chapter
       );
+    case "ADD_CHAPTER":
+      return state.concat({ title: action.title, ready: false });
     default:
       return state;
   }
@@ -31,7 +33,6 @@ const ContentList = () => {
   const [chapters, dispatch] = useReducer(ChapterReducer, [
     {
       title: "First Chapter",
-      text: "Once upon a time ... and never again",
       ready: false,
     },
   ]);
@@ -41,8 +42,7 @@ const ContentList = () => {
       {chapters.map((chap, idx) => (
         <div key={idx}>
           <h2>{chap.title}</h2>
-          <p>{chap.text}</p>
-          <Form.Group controlId="ready">
+          <Form.Group controlId={"ready" + idx}>
             <Form.Check
               onChange={() => dispatch({ type: "TOGGLE_READY", idx })}
               type="checkbox"
@@ -53,6 +53,29 @@ const ContentList = () => {
           </Form.Group>
         </div>
       ))}
+
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch({ type: "ADD_CHAPTER", title: e.target.title.value });
+          e.target.title.value = "";
+        }}
+      >
+        <Row>
+          <Col md="6">
+            <Form.Group>
+              <Form.Label>Title</Form.Label>
+              <Form.Control size="lg" type="text" name="title" />
+              <Form.Text className="text-muted">
+                enter the title of chapter
+              </Form.Text>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </>
   );
 };
