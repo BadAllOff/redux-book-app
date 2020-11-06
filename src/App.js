@@ -18,12 +18,36 @@ export default App;
 
 const ChapterReducer = function (state, action) {
   switch (action.type) {
-    case "TOGGLE_READY":
+    case "TOGGLE_CHAPTER_READY":
       return state.map((chapter, idx) =>
         idx === action.idx ? { ...chapter, ready: !chapter.ready } : chapter
       );
+    case "TOGGLE_SUBSECTION_READY":
+      return state.map((chapter, idx) =>
+        idx === action.idx
+          ? {
+              ...chapter,
+              subsections: chapter.subsections.map((subsection, sectionIdx) =>
+                sectionIdx === action.sectionIdx
+                  ? { ...subsection, ready: !subsection.ready }
+                  : subsection
+              ),
+            }
+          : chapter
+      );
+
     case "ADD_CHAPTER":
-      return state.concat({ title: action.title, ready: false });
+      // console.log(state[0].subsections);
+      return state.concat({
+        title: action.title,
+        ready: false,
+        subsections: [],
+      });
+    case "ADD_SUBSECTION":
+      return state[action.chapId].subsections.concat({
+        title: action.title,
+        ready: false,
+      });
     default:
       return state;
   }
@@ -34,26 +58,54 @@ const ContentList = () => {
     {
       title: "First Chapter",
       ready: false,
+      subsections: [
+        { title: "First sub", ready: false },
+        { title: "Second sub", ready: false },
+      ],
     },
   ]);
 
   return (
     <>
-      {chapters.map((chap, idx) => (
-        <div key={idx}>
-          <h2>{chap.title}</h2>
-          <Form.Group controlId={"ready" + idx}>
-            <Form.Check
-              onChange={() => dispatch({ type: "TOGGLE_READY", idx })}
-              type="checkbox"
-              label="Mark as ready"
-              name="ready"
-              checked={chap.ready}
-            />
-          </Form.Group>
-        </div>
-      ))}
-
+      <ul>
+        {chapters.map((chap, idx) => (
+          <li key={idx}>
+            <h2>{chap.title}</h2>
+            <Form.Group controlId={"ready" + idx}>
+              <Form.Check
+                onChange={() => dispatch({ type: "TOGGLE_CHAPTER_READY", idx })}
+                type="checkbox"
+                label="Mark as ready"
+                name="ready"
+                checked={chap.ready}
+              />
+            </Form.Group>
+            <ul>
+              {chap.subsections &&
+                chap.subsections.map((subSection, sectionIdx) => (
+                  <li key={sectionIdx}>
+                    <h2>{subSection.title}</h2>
+                    <Form.Group controlId={"readySubsection" + sectionIdx}>
+                      <Form.Check
+                        onChange={() =>
+                          dispatch({
+                            type: "TOGGLE_SUBSECTION_READY",
+                            idx,
+                            sectionIdx,
+                          })
+                        }
+                        type="checkbox"
+                        label="Mark as ready"
+                        name="ready"
+                        checked={subSection.ready}
+                      />
+                    </Form.Group>
+                  </li>
+                ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
       <Form
         onSubmit={(e) => {
           e.preventDefault();
