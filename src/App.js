@@ -53,6 +53,15 @@ const ChapterReducer = function (state, action) {
   }
 };
 
+const FilterReducer = function (state, action) {
+  switch (action.type) {
+    case "SET_FILTER":
+      return action.filter;
+    default:
+      return state;
+  }
+};
+
 const ContentList = () => {
   const [chapters, dispatch] = useReducer(ChapterReducer, [
     {
@@ -65,10 +74,52 @@ const ContentList = () => {
     },
   ]);
 
+  const [visibilityFilter, dispatchFilter] = useReducer(
+    FilterReducer,
+    "SHOW_ALL"
+  );
+
+  const filters = {
+    SHOW_ALL: () => true,
+    SHOW_READY: (chapter) => !!chapter.ready,
+    SHOW_NOTREADY: (chapter) => !chapter.ready,
+  };
+
   return (
     <>
+      <Container>
+        <Row>
+          <Button
+            variant="outline-dark"
+            size="sm"
+            onClick={() => {
+              dispatchFilter({ type: "SET_FILTER", filter: "SHOW_ALL" });
+            }}
+          >
+            Show all
+          </Button>
+          <Button
+            variant="outline-dark"
+            size="sm"
+            onClick={() => {
+              dispatchFilter({ type: "SET_FILTER", filter: "SHOW_READY" });
+            }}
+          >
+            Show ready
+          </Button>
+          <Button
+            variant="outline-dark"
+            size="sm"
+            onClick={() => {
+              dispatchFilter({ type: "SET_FILTER", filter: "SHOW_NOTREADY" });
+            }}
+          >
+            Show not ready
+          </Button>
+        </Row>
+      </Container>
       <ul>
-        {chapters.map((chap, idx) => (
+        {chapters.filter(filters[visibilityFilter]).map((chap, idx) => (
           <li key={idx}>
             <h2>{chap.title}</h2>
             <Form.Group controlId={"ready" + idx}>
