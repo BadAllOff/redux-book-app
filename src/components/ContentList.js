@@ -17,9 +17,7 @@ const ContentList = ({
               <h2>{chap.title}</h2>
               <Form.Group controlId={"ready" + idx}>
                 <Form.Check
-                  onChange={() =>
-                    toggleReady({ type: "TOGGLE_CHAPTER_READY", idx })
-                  }
+                  onChange={() => toggleReady(idx)}
                   type="checkbox"
                   label="Mark as ready"
                   name="ready"
@@ -34,11 +32,7 @@ const ContentList = ({
                       <Form.Group controlId={"readySubsection" + sectionIdx}>
                         <Form.Check
                           onChange={() =>
-                            toggleSubSectionReady({
-                              type: "TOGGLE_SUBSECTION_READY",
-                              idx,
-                              sectionIdx,
-                            })
+                            toggleSubSectionReady(idx, sectionIdx)
                           }
                           type="checkbox"
                           label="Mark as ready"
@@ -55,7 +49,7 @@ const ContentList = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          addChapter({ type: "ADD_CHAPTER", title: e.target.title.value });
+          addChapter(e.target.title.value);
           e.target.title.value = "";
         }}
       >
@@ -82,4 +76,23 @@ const mapStateToProps = (state) => ({
   chapters: state,
 });
 
-export default connect(mapStateToProps)(ContentList);
+const mapDispatchToProps = (dispatch) => ({
+  toggleReady: (idx) =>
+    dispatch({
+      type: "TOGGLE_CHAPTER_READY",
+      idx,
+    }),
+  toggleSubSectionReady: (idx, sectionIdx) =>
+    dispatch({
+      type: "TOGGLE_SUBSECTION_READY",
+      idx,
+      sectionIdx,
+    }),
+  addChapter: (title) =>
+    dispatch({
+      type: "ADD_CHAPTER",
+      title,
+    }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentList);
