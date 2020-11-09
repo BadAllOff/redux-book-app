@@ -36,15 +36,19 @@ const chapterReducer = function (state, action) {
   }
 };
 
-const store = createStore(chapterReducer, [
-  {
-    title: "First Chapter",
-    ready: false,
-    subsections: [
-      { title: "First sub", ready: false },
-      { title: "Second sub", ready: false },
-    ],
-  },
-]);
+const store = createStore(
+  chapterReducer,
+  [
+    {
+      title: "First Chapter",
+      ready: false,
+      subsections: [
+        { title: "First sub", ready: false },
+        { title: "Second sub", ready: false },
+      ],
+    },
+  ],
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;
