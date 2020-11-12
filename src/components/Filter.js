@@ -1,27 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Row, Container, Button } from "react-bootstrap";
 
-const Filter = ({ dispatch }) => {
+const Filter = ({ setFilter }) => {
   return (
     <Container>
       <Row>
         <FilterButton
           onClick={() => {
-            dispatch({ type: "SET_FILTER", filter: "SHOW_ALL" });
+            setFilter("SHOW_ALL");
           }}
         >
           Show all
         </FilterButton>
         <FilterButton
           onClick={() => {
-            dispatch({ type: "SET_FILTER", filter: "SHOW_READY" });
+            setFilter("SHOW_READY");
           }}
         >
           Show ready
         </FilterButton>
         <FilterButton
           onClick={() => {
-            dispatch({ type: "SET_FILTER", filter: "SHOW_NOTREADY" });
+            setFilter("SHOW_NOTREADY");
           }}
         >
           Show not ready
@@ -31,6 +32,16 @@ const Filter = ({ dispatch }) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  setFilter: (filter) =>
+    dispatch({
+      type: "SET_FILTER",
+      filter,
+    }),
+});
+
+export default connect(null, mapDispatchToProps)(Filter);
+
 const FilterButton = ({ onClick, children }) => {
   return (
     <Button variant="outline-dark" size="sm" onClick={onClick}>
@@ -38,5 +49,3 @@ const FilterButton = ({ onClick, children }) => {
     </Button>
   );
 };
-
-export default Filter;

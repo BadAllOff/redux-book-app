@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import ContentList from "./components/ContentList";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Filter from "./components/Filter";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container>
         <h1>Amazing book title</h1>
         <hr />
+        <Filter />
         <ContentList />
       </Container>
     </Provider>

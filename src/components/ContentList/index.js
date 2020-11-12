@@ -1,8 +1,14 @@
 import { connect } from "react-redux";
 import ContentList from "./ContentList";
 
+const filters = {
+  SHOW_ALL: () => true,
+  SHOW_READY: (chapters) => !!chapters.ready,
+  SHOW_NOTREADY: (chapters) => !chapters.ready,
+};
+
 const mapStateToProps = (state) => ({
-  chapters: state,
+  chapters: state.chapters.filter(filters[state.visibilityFilter]),
 });
 
 const mapDispatchToProps = (dispatch) => ({
