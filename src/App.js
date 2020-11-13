@@ -7,6 +7,7 @@ import ContentList from "./components/ContentList";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Filter from "./components/Filter";
+import ChaptersCount from "./components/ChaptersCount";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <hr />
         <Filter />
         <ContentList />
+        <ChaptersCount />
       </Container>
     </Provider>
   );
