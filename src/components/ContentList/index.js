@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import ContentList from "./ContentList";
+import * as chaptersActions from "../../redux/actionTypes/chapters";
 
 const filters = {
   SHOW_ALL: () => true,
@@ -14,18 +15,18 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   toggleReady: (idx) =>
     dispatch({
-      type: "TOGGLE_CHAPTER_READY",
+      type: chaptersActions.TOGGLE_CHAPTER_READY,
       idx,
     }),
   toggleSubSectionReady: (idx, sectionIdx) =>
     dispatch({
-      type: "TOGGLE_SUBSECTION_READY",
+      type: chaptersActions.TOGGLE_SUBSECTION_READY,
       idx,
       sectionIdx,
     }),
   addChapter: (title) =>
     dispatch({
-      type: "ADD_CHAPTER",
+      type: chaptersActions.ADD_CHAPTER,
       title,
     }),
 });

@@ -14,7 +14,7 @@ const ContentList = ({
           chapters.map((chap, idx) => (
             <li key={idx}>
               <h2>{chap.title}</h2>
-              <Form.Group controlId={"ready" + idx}>
+              <Form.Group controlId={["ready", idx].join("_")}>
                 <Form.Check
                   onChange={() => toggleReady(idx)}
                   type="checkbox"
@@ -28,7 +28,11 @@ const ContentList = ({
                   chap.subsections.map((subSection, sectionIdx) => (
                     <li key={sectionIdx}>
                       <h2>{subSection.title}</h2>
-                      <Form.Group controlId={"readySubsection" + sectionIdx}>
+                      <Form.Group
+                        controlId={["readySubsection", idx, sectionIdx].join(
+                          "_"
+                        )}
+                      >
                         <Form.Check
                           onChange={() =>
                             toggleSubSectionReady(idx, sectionIdx)

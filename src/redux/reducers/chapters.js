@@ -12,6 +12,7 @@ const initialState = [
     ready: false,
     subsections: [
       { title: "First sub", ready: false },
+      { title: "Second sub", ready: false },
     ],
   },
 ];
