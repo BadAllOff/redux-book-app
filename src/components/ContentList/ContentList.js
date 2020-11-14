@@ -6,6 +6,7 @@ const ContentList = ({
   toggleReady,
   toggleSubSectionReady,
   addChapter,
+  addSubsection,
 }) => {
   return (
     <>
@@ -23,6 +24,31 @@ const ContentList = ({
                   checked={chap.ready}
                 />
               </Form.Group>
+              <fieldset className="border p-2">
+                <legend className="w-auto">Add new subsection</legend>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addSubsection(idx, e.target.title.value);
+                    e.target.title.value = "";
+                  }}
+                >
+                  <Row>
+                    <Col md="6">
+                      <Form.Group>
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control size="sm" type="text" name="title" />
+                        <Form.Text className="text-muted">
+                          enter the title of subsection
+                        </Form.Text>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Button variant="primary" size="sm" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </fieldset>
               <ul>
                 {chap.subsections &&
                   chap.subsections.map((subSection, sectionIdx) => (
@@ -49,28 +75,31 @@ const ContentList = ({
             </li>
           ))}
       </ul>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addChapter(e.target.title.value);
-          e.target.title.value = "";
-        }}
-      >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="lg" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of chapter
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      <fieldset className="border p-2">
+        <legend className="w-auto">Add new chapter</legend>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addChapter(e.target.title.value);
+            e.target.title.value = "";
+          }}
+        >
+          <Row>
+            <Col md="6">
+              <Form.Group>
+                <Form.Label>Title</Form.Label>
+                <Form.Control size="lg" type="text" name="title" />
+                <Form.Text className="text-muted">
+                  enter the title of chapter
+                </Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </fieldset>
     </>
   );
 };

@@ -29,6 +29,12 @@ const mapDispatchToProps = (dispatch) => ({
       type: chaptersActions.ADD_CHAPTER,
       title,
     }),
+  addSubsection: (chapId, title) =>
+    dispatch({
+      type: chaptersActions.ADD_SUBSECTION,
+      chapId,
+      title,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentList);

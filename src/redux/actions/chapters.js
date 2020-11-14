@@ -1,15 +1,21 @@
-import * as chaptersActions from '../actionTypes/chapters';
+import * as chaptersActions from "../actionTypes/chapters";
 
 export const addChapter = (title) => ({
-    type: chaptersActions.ADD_CHAPTER,
-    title
+  type: chaptersActions.ADD_CHAPTER,
+  title,
+});
+
+export const addSubsection = (chapId, title) => ({
+  type: chaptersActions.ADD_SUBSECTION,
+  chapId,
+  title,
 });
 export const toggleChapter = (idx) => ({
-    type: chaptersActions.TOGGLE_CHAPTER_READY,
-    idx
+  type: chaptersActions.TOGGLE_CHAPTER_READY,
+  idx,
 });
 export const toggleSubsection = (idx, sectionIdx) => ({
-    type: chaptersActions.TOGGLE_SUBSECTION_READY,
-    idx,
-    sectionIdx,
+  type: chaptersActions.TOGGLE_SUBSECTION_READY,
+  idx,
+  sectionIdx,
 });

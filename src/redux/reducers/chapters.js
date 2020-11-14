@@ -44,10 +44,21 @@ export const chapters = function (state = initialState, action) {
         subsections: [],
       });
     case "ADD_SUBSECTION":
-      return state[action.chapId].subsections.concat({
-        title: action.title,
-        ready: false,
-      });
+      console.log(state[action.chapId].subsections);
+      console.log(action);
+      // return state;
+
+      return state.map((chapter, idx) =>
+        idx === action.chapId
+          ? {
+              ...chapter,
+              subsections: chapter.subsections.concat({
+                title: action.title,
+                ready: false,
+              }),
+            }
+          : chapter
+      );
     default:
       return state;
   }
