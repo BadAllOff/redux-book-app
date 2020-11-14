@@ -7,6 +7,13 @@ const initialState = [
       { title: "Second sub", ready: false },
     ],
   },
+  {
+    title: "Second Chapter",
+    ready: false,
+    subsections: [
+      { title: "First sub", ready: false },
+    ],
+  },
 ];
 
 export const chapters = function (state = initialState, action) {
