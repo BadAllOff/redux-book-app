@@ -13,26 +13,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleReady: (idx) =>
-    dispatch({
-      type: chaptersActions.TOGGLE_CHAPTER_READY,
-      idx,
-    }),
-  toggleSubSectionReady: (idx, sectionIdx) =>
-    dispatch({
-      type: chaptersActions.TOGGLE_SUBSECTION_READY,
-      idx,
-      sectionIdx,
-    }),
   addChapter: (title) =>
     dispatch({
       type: chaptersActions.ADD_CHAPTER,
-      title,
-    }),
-  addSubsection: (chapId, title) =>
-    dispatch({
-      type: chaptersActions.ADD_SUBSECTION,
-      chapId,
       title,
     }),
 });
