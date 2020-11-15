@@ -23,19 +23,38 @@ export const chapters = function (state = initialState, action) {
       return state.map((chapter, idx) =>
         idx === action.idx ? { ...chapter, ready: !chapter.ready } : chapter
       );
+
     case "TOGGLE_SUBSECTION_READY":
-      return state.map((chapter, idx) =>
+      const stateSub = state.map((chapter, idx) =>
         idx === action.idx
           ? {
               ...chapter,
-              subsections: chapter.subsections.map((subsection, sectionIdx) =>
-                sectionIdx === action.sectionIdx
+              subsections: chapter.subsections.map((subsection, sectionIdx) => {
+                return sectionIdx === action.sectionIdx
                   ? { ...subsection, ready: !subsection.ready }
-                  : subsection
-              ),
+                  : subsection;
+              }),
             }
           : chapter
       );
+
+      const countSubsections = stateSub[action.idx].subsections.length;
+      const countReadySubsections = stateSub[action.idx].subsections.filter(
+        (s) => s.ready === true
+      ).length;
+
+      const finalState = stateSub.map((chapter, idx) => {
+        if (idx === action.idx) {
+          if (countSubsections === countReadySubsections) {
+            return { ...chapter, ready: true };
+          } else {
+            return { ...chapter, ready: false };
+          }
+        }
+        return chapter;
+      });
+
+      return finalState;
 
     case "ADD_CHAPTER":
       return state.concat({
@@ -56,6 +75,7 @@ export const chapters = function (state = initialState, action) {
                 title: action.title,
                 ready: false,
               }),
+              ready: false,
             }
           : chapter
       );
