@@ -21,7 +21,18 @@ export const chapters = function (state = initialState, action) {
   switch (action.type) {
     case "TOGGLE_CHAPTER_READY":
       return state.map((chapter, idx) =>
-        idx === action.idx ? { ...chapter, ready: !chapter.ready } : chapter
+        idx === action.idx
+          ? {
+              ...chapter,
+              ready: !chapter.ready,
+              subsections: chapter.subsections.map((subsection) => {
+                return {
+                  ...subsection,
+                  ready: !chapter.ready,
+                };
+              }),
+            }
+          : chapter
       );
 
     case "TOGGLE_SUBSECTION_READY":
