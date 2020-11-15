@@ -2,15 +2,9 @@ import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import Subsection from "./Subsection";
 
-const Chapter = ({
-  chap,
-  idx,
-  toggleReady,
-  addSubsection,
-}) => {
+const Chapter = ({ chap, idx, toggleReady, addSubsection }) => {
   return (
-    <>
-      <li key={idx}>
+      <li key={["chapter", idx].join("_")}>
         <h2>{chap.title}</h2>
         <Form.Group controlId={["ready", idx].join("_")}>
           <Form.Check
@@ -33,7 +27,6 @@ const Chapter = ({
             ))}
         </ul>
       </li>
-    </>
   );
 };
 
