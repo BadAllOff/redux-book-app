@@ -2,19 +2,13 @@ import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import Chapter from "./Chapter";
 
-const ContentList = ({
-  chapters,
-  addChapter,
-}) => {
+const ContentList = ({ chapters, addChapter }) => {
   return (
     <>
       <ul>
         {chapters &&
           chapters.map((chap, idx) => (
-            <Chapter
-              chap={chap}
-              idx={idx}
-            />
+            <Chapter key={idx} chap={chap} idx={idx} />
           ))}
       </ul>
       <ChapterForm addChapter={addChapter} />

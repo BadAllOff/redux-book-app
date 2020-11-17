@@ -4,29 +4,30 @@ import Subsection from "./Subsection";
 
 const Chapter = ({ chap, idx, toggleReady, addSubsection }) => {
   return (
-      <li key={["chapter", idx].join("_")}>
-        <h2>{chap.title}</h2>
-        <Form.Group controlId={["ready", idx].join("_")}>
-          <Form.Check
-            onChange={() => toggleReady(idx)}
-            type="checkbox"
-            label="Mark as ready"
-            name="ready"
-            checked={chap.ready}
-          />
-        </Form.Group>
-        <SubsectionForm idx={idx} addSubsection={addSubsection} />
-        <ul>
-          {chap.subsections &&
-            chap.subsections.map((subSection, sectionIdx) => (
-              <Subsection
-                idx={idx}
-                subSection={subSection}
-                sectionIdx={sectionIdx}
-              />
-            ))}
-        </ul>
-      </li>
+    <li>
+      <h2>{chap.title}</h2>
+      <Form.Group controlId={["ready", idx].join("_")}>
+        <Form.Check
+          onChange={() => toggleReady(idx)}
+          type="checkbox"
+          label="Mark as ready"
+          name="ready"
+          checked={chap.ready}
+        />
+      </Form.Group>
+      <SubsectionForm idx={idx} addSubsection={addSubsection} />
+      <ul>
+        {chap.subsections &&
+          chap.subsections.map((subSection, sectionIdx) => (
+            <Subsection
+              key={sectionIdx}
+              idx={idx}
+              subSection={subSection}
+              sectionIdx={sectionIdx}
+            />
+          ))}
+      </ul>
+    </li>
   );
 };
 
