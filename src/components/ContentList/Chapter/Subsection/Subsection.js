@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 const Subsection = ({ idx, subSection, sectionIdx, toggleSubSectionReady }) => {
   return (
     <li>
-      <h2>{subSection.title}</h2>
+      <h6>{subSection.title}</h6>
       <Form.Group controlId={["readySubsection", idx, sectionIdx].join("_")}>
         <Form.Check
           onChange={() => toggleSubSectionReady(idx, sectionIdx)}

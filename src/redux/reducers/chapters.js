@@ -11,8 +11,16 @@ const initialState = [
     title: "Second Chapter",
     ready: false,
     subsections: [
-      { title: "First sub", ready: false },
+      { title: "First sub", ready: true },
       { title: "Second sub", ready: false },
+    ],
+  },
+  {
+    title: "Third Chapter",
+    ready: false,
+    subsections: [
+      { title: "First sub", ready: false },
+      { title: "Second sub", ready: true },
     ],
   },
 ];

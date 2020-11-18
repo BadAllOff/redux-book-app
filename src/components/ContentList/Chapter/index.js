@@ -1,6 +1,21 @@
 import { connect } from "react-redux";
-import * as chaptersActions from "../../../redux/actionTypes/chapters";
 import Chapter from "./Chapter";
+import * as chaptersActions from "../../../redux/actionTypes/chapters";
+
+const filters = {
+  SHOW_ALL: () => true,
+  SHOW_READY: (subsections) => !!subsections.ready,
+  SHOW_NOTREADY: (subsections) => !subsections.ready,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const subsections = {
+    subsections: state.chapters[ownProps.idx].subsections.filter(
+      filters[state.visibilityFilter]
+    ),
+  };
+  return subsections;
+};
 
 const mapDispatchToProps = (dispatch) => ({
   toggleReady: (idx) =>
@@ -16,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-export default connect(null, mapDispatchToProps)(Chapter);
+export default connect(mapStateToProps, mapDispatchToProps)(Chapter);

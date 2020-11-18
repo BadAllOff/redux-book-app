@@ -7,8 +7,8 @@ const ContentList = ({ chapters, addChapter }) => {
     <>
       <ul>
         {chapters &&
-          chapters.map((chap, idx) => (
-            <Chapter key={idx} chap={chap} idx={idx} />
+          chapters.map((chapter, idx) => (
+            <Chapter key={idx} chapter={chapter} idx={idx} />
           ))}
       </ul>
       <ChapterForm addChapter={addChapter} />
