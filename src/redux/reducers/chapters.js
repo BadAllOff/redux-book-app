@@ -90,10 +90,7 @@ export const chapters = function (state = initialState, action) {
           ? {
               ...chapter,
               subsections: chapter.subsections.concat({
-                id: chapter.subsections.reduce(
-                  (maxId, sub) => (sub.id > maxId ? ++sub.id : ++maxId),
-                  0
-                ),
+                id: Math.max(...chapter.subsections.map((sub) => sub.id))+1,
                 title: action.title,
                 ready: false,
               }),
