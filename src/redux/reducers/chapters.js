@@ -21,10 +21,7 @@ const initialState = [
     id: 2,
     title: "Third Chapter",
     ready: false,
-    subsections: [
-      { id: 0, title: "First sub", ready: false },
-      { id: 1, title: "Second sub", ready: true },
-    ],
+    subsections: [],
   },
 ];
 
@@ -90,7 +87,7 @@ export const chapters = function (state = initialState, action) {
           ? {
               ...chapter,
               subsections: chapter.subsections.concat({
-                id: Math.max(...chapter.subsections.map((sub) => sub.id))+1,
+                id: Math.max(...chapter.subsections.map((sub) => sub.id),-1) + 1,
                 title: action.title,
                 ready: false,
               }),
