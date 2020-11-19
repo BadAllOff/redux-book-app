@@ -1,26 +1,29 @@
 const initialState = [
   {
+    id: 0,
     title: "First Chapter",
     ready: false,
     subsections: [
-      { title: "First sub", ready: false },
-      { title: "Second sub", ready: false },
+      { id: 0, title: "First sub", ready: false },
+      { id: 1, title: "Second sub", ready: false },
     ],
   },
   {
+    id: 1,
     title: "Second Chapter",
     ready: false,
     subsections: [
-      { title: "First sub", ready: true },
-      { title: "Second sub", ready: false },
+      { id: 0, title: "First sub", ready: true },
+      { id: 1, title: "Second sub", ready: false },
     ],
   },
   {
+    id: 2,
     title: "Third Chapter",
     ready: false,
     subsections: [
-      { title: "First sub", ready: false },
-      { title: "Second sub", ready: true },
+      { id: 0, title: "First sub", ready: false },
+      { id: 1, title: "Second sub", ready: true },
     ],
   },
 ];
@@ -49,7 +52,7 @@ export const chapters = function (state = initialState, action) {
           ? {
               ...chapter,
               subsections: chapter.subsections.map((subsection, sectionIdx) => {
-                return sectionIdx === action.sectionIdx
+                return subsection.id === action.sectionIdx
                   ? { ...subsection, ready: !subsection.ready }
                   : subsection;
               }),
@@ -82,15 +85,15 @@ export const chapters = function (state = initialState, action) {
         subsections: [],
       });
     case "ADD_SUBSECTION":
-      console.log(state[action.chapId].subsections);
-      console.log(action);
-      // return state;
-
       return state.map((chapter, idx) =>
         idx === action.chapId
           ? {
               ...chapter,
               subsections: chapter.subsections.concat({
+                id: chapter.subsections.reduce(
+                  (maxId, sub) => (sub.id > maxId ? ++sub.id : ++maxId),
+                  0
+                ),
                 title: action.title,
                 ready: false,
               }),

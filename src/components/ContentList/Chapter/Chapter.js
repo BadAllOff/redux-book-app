@@ -2,30 +2,27 @@ import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import Subsection from "./Subsection";
 
-const Chapter = (props) => {
-  console.log(props);
-
+const Chapter = ({chapter, idx, toggleReady, addSubsection, subsections}) => {
   return (
     <li>
-      <h4>{props.chapter.title}</h4>
-      <Form.Group controlId={["ready", props.idx].join("_")}>
+      <h4>{chapter.title}</h4>
+      <Form.Group controlId={["ready", idx].join("_")}>
         <Form.Check
-          onChange={() => props.toggleReady(props.idx)}
+          onChange={() => toggleReady(idx)}
           type="checkbox"
           label="Mark as ready"
           name="ready"
-          checked={props.chapter.ready}
+          checked={chapter.ready}
         />
       </Form.Group>
-      <SubsectionForm idx={props.idx} addSubsection={props.addSubsection} />
+      <SubsectionForm idx={idx} addSubsection={addSubsection} />
       <ul>
-        {props.subsections &&
-          props.subsections.map((subSection, sectionIdx) => (
+        {subsections &&
+          subsections.map((subSection) => (
             <Subsection
-              key={sectionIdx}
-              idx={props.idx}
+              key={subSection.id}
+              idx={idx}
               subSection={subSection}
-              sectionIdx={sectionIdx}
             />
           ))}
       </ul>
