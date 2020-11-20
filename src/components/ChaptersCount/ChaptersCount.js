@@ -17,7 +17,6 @@ const ChaptersCount = ({ chapters }) => {
       subsectionsReadyCounter += chapter.subsections.filter((subsection) => {
         return subsection.ready;
       }).length;
-      console.log(subsectionsReadyCounter);
 
       return chapter.subsections.length + agr;
     }, 0);
