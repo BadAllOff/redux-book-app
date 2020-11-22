@@ -1,3 +1,5 @@
+import uuid from 'uuid-random';
+
 const initialState = [
   {
     id: 0,
@@ -87,7 +89,7 @@ export const chapters = function (state = initialState, action) {
           ? {
               ...chapter,
               subsections: chapter.subsections.concat({
-                id: Math.max(...chapter.subsections.map((sub) => sub.id),-1) + 1,
+                id: uuid(),
                 title: action.title,
                 ready: false,
               }),
