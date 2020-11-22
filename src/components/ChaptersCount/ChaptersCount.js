@@ -1,31 +1,9 @@
-import React, { useState, useEffect } from "react";
-
-const ChaptersCount = ({ chapters }) => {
-  const [subsectionsCount, setSubsectionsCount] = useState(0);
-  const [subsectionsReadyCount, setSubsectionsReadyCount] = useState(0);
-  const [chaptersReadyCount, setChaptersReadyCount] = useState(0);
-
-  useEffect(() => {
-    let subsectionsReadyCounter = 0;
-    let chaptersReadyCounter = 0;
-
-    const subsectionsCounter = chapters.reduce((agr, chapter) => {
-      if (chapter.ready) {
-        chaptersReadyCounter++;
-      }
-
-      subsectionsReadyCounter += chapter.subsections.filter((subsection) => {
-        return subsection.ready;
-      }).length;
-
-      return chapter.subsections.length + agr;
-    }, 0);
-
-    setSubsectionsCount(subsectionsCounter);
-    setSubsectionsReadyCount(subsectionsReadyCounter);
-    setChaptersReadyCount(chaptersReadyCounter);
-  }, [chapters]);
-
+const ChaptersCount = ({
+  chapters,
+  subsectionsCount,
+  subsectionsReadyCount,
+  chaptersReadyCount,
+}) => {
   return (
     <>
       <div>
