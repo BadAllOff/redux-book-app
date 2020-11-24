@@ -10,7 +10,7 @@ const filters = {
 
 const mapStateToProps = (state, ownProps) => {
   const subsections = {
-    subsections: state.chapters[ownProps.idx].subsections.filter(
+    subsections: state.chapters.present[ownProps.idx].subsections.filter(
       filters[state.visibilityFilter]
     ),
   };

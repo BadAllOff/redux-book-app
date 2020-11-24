@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import Chapter from "./Chapter";
 
-const ContentList = ({ chapters, addChapter }) => {
+const ContentList = ({ chapters, addChapter, undo }) => {
   return (
     <>
       <ul>
@@ -12,6 +12,13 @@ const ContentList = ({ chapters, addChapter }) => {
           ))}
       </ul>
       <ChapterForm addChapter={addChapter} />
+      <Button
+        onClick={() => {
+          undo();
+        }}
+      >
+        Undo
+      </Button>
     </>
   );
 };
