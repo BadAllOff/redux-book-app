@@ -1,14 +1,25 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container } from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
-import './index.css';
+import React from "react";
+import { Container } from "react-bootstrap";
+import ContentList from "./components/ContentList";
+import store from "./redux/store";
+import { Provider } from "react-redux";
+import Filter from "./components/Filter";
+import ChaptersCount from "./components/ChaptersCount";
 
 function App() {
   return (
-    <Container>
-      <h1>hello world</h1>
-      <Button>Push me</Button>
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <h1>Amazing book title</h1>
+        <hr />
+        <Filter />
+        <ContentList />
+        <ChaptersCount />
+      </Container>
+    </Provider>
   );
 }
 
