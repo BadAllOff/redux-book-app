@@ -2,27 +2,30 @@ import { connect } from "react-redux";
 import ChaptersCount from "./ChaptersCount";
 
 const mapStateToProps = (state) => {
-  const chaps = state.chapters;
-  let subsectionsReadyCounter = 0;
-  let chaptersReadyCounter = 0;
+  const chapters = state.chapters;
 
-  const subsectionsCounter = chaps.reduce((agr, chapter) => {
-    if (chapter.ready) {
-      chaptersReadyCounter++;
+  const doneStats = chapters.reduce(
+    (acc, chapter) => ({
+      chaptersReadyCounter: chapter.ready
+        ? acc.chaptersReadyCounter + 1
+        : acc.chaptersReadyCounter,
+      subsectionsReadyCounter:
+        acc.subsectionsReadyCounter +
+        chapter.subsections.filter((s) => s.ready).length,
+      subsectionsCounter: chapter.subsections.length + acc.subsectionsCounter,
+    }),
+    {
+      chaptersReadyCounter: 0,
+      subsectionsReadyCounter: 0,
+      subsectionsCounter: 0,
     }
-
-    subsectionsReadyCounter += chapter.subsections.filter((subsection) => {
-      return subsection.ready;
-    }).length;
-
-    return chapter.subsections.length + agr;
-  }, 0);
+  );
 
   return {
     chapters: state.chapters,
-    subsectionsCount: subsectionsCounter,
-    subsectionsReadyCount: subsectionsReadyCounter,
-    chaptersReadyCount: chaptersReadyCounter,
+    subsectionsCount: doneStats.subsectionsCounter,
+    subsectionsReadyCount: doneStats.subsectionsReadyCounter,
+    chaptersReadyCount: doneStats.chaptersReadyCounter,
   };
 };
 
