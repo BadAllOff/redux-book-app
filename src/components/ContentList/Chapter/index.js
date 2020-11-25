@@ -10,23 +10,25 @@ const filters = {
 
 const mapStateToProps = (state, ownProps) => {
   const subsections = {
-    subsections: state.chapters.present[ownProps.idx].subsections.filter(
-      filters[state.visibilityFilter]
-    ),
+    subsections: state.chapters.present.entries
+      .find((e) => {
+        return e._id === ownProps.chapter._id;
+      })
+      .subsections.filter(filters[state.visibilityFilter]),
   };
   return subsections;
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleReady: (idx) =>
+  toggleReady: (chapterId) =>
     dispatch({
       type: chaptersActions.TOGGLE_CHAPTER_READY,
-      idx,
+      chapterId,
     }),
-  addSubsection: (chapId, title) =>
+  addSubsection: (chapterId, title) =>
     dispatch({
       type: chaptersActions.ADD_SUBSECTION,
-      chapId,
+      chapterId,
       title,
     }),
 });

@@ -3,11 +3,11 @@ import * as chaptersActions from "../../../../redux/actionTypes/chapters";
 import Subsection from "./Subsection";
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSubSectionReady: (idx, sectionIdx) =>
+  toggleSubsectionReady: (chapterId, sectionId) =>
     dispatch({
       type: chaptersActions.TOGGLE_SUBSECTION_READY,
-      idx,
-      sectionIdx,
+      chapterId,
+      sectionId,
     }),
 });
 

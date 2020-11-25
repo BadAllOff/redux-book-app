@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import ChaptersCount from "./ChaptersCount";
 
 const mapStateToProps = (state) => {
-  const chapters = state.chapters.present;
+  const chapters = state.chapters.present.entries;
 
   const doneStats = chapters.reduce(
     (acc, chapter) => ({

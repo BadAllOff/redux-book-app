@@ -9,6 +9,10 @@ import { Provider } from "react-redux";
 import Filter from "./components/Filter";
 import ChaptersCount from "./components/ChaptersCount";
 
+import { fetchChapters } from "./redux/actions/chapters";
+
+store.dispatch(fetchChapters());
+
 function App() {
   return (
     <Provider store={store}>

@@ -1,17 +1,17 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const Subsection = ({ idx, subSection, toggleSubSectionReady }) => {
+const Subsection = ({ chapterId, subsection, toggleSubsectionReady }) => {
   return (
     <li>
-      <h6>{subSection.title}</h6>
-      <Form.Group controlId={["readySubsection", idx, subSection.id].join("_")}>
+      <h6>{subsection.title}</h6>
+      <Form.Group controlId={["readySubsection", chapterId, subsection._id].join("_")}>
         <Form.Check
-          onChange={() => toggleSubSectionReady(idx, subSection.id)}
+          onChange={() => toggleSubsectionReady(chapterId, subsection._id)}
           type="checkbox"
           label="Mark as ready"
           name="ready"
-          checked={subSection.ready}
+          checked={subsection.ready}
         />
       </Form.Group>
     </li>
