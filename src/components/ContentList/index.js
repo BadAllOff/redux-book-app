@@ -4,7 +4,7 @@ import * as chaptersActions from "../../redux/actionTypes/chapters";
 import { ActionCreators } from "redux-undo";
 
 const mapStateToProps = (state) => ({
-  isLoading: state.chapters.isLoading,
+  isLoading: state.chapters.present.isLoading,
   chapters: state.chapters.present.entries,
 });
 
