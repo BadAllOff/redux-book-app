@@ -73,11 +73,15 @@ export const chapters = function (state = initialState, action) {
       return finalState;
 
     case chaptersActions.ADD_CHAPTER:
-      return state.entries.concat({
-        title: action.title,
-        ready: false,
-        subsections: [],
-      });
+      return {
+        ...state,
+        entries: state.entries.concat({
+          _id: uuid(),
+          title: action.title,
+          ready: false,
+          subsections: [],
+        }),
+      };
 
     case chaptersActions.ADD_SUBSECTION:
       return {
