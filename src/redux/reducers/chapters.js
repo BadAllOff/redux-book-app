@@ -49,6 +49,7 @@ export const chapters = function (state = initialState, action) {
       const countSubsections = stateSub.entries.find((e) => {
         return e._id === action.chapterId;
       }).subsections.length;
+
       const countReadySubsections = stateSub.entries
         .find((e) => {
           return e._id === action.chapterId;

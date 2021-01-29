@@ -12,7 +12,7 @@ const SubsectionList = ({ chapter, subsections, addSubsection }) => {
             <Subsection
               key={subsection._id}
               chapterId={subsection._parent_id}
-              subsection={subsection}
+              subsectionId={subsection._id}
             />
           ))}
       </ul>
