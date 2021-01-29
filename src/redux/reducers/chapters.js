@@ -86,12 +86,12 @@ export const chapters = function (state = initialState, action) {
     case chaptersActions.ADD_SUBSECTION:
       return {
         ...state,
-        entries: state.entries.map((chapter, idx) =>
-          idx === action.chapId
+        entries: state.entries.map((chapter) =>
+          chapter._id === action.chapterId
             ? {
                 ...chapter,
                 subsections: chapter.subsections.concat({
-                  id: uuid(),
+                  _id: uuid(),
                   title: action.title,
                   ready: false,
                 }),

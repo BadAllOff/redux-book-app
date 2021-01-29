@@ -11,7 +11,7 @@ const SubsectionList = ({ chapter, subsections, addSubsection }) => {
           subsections.map((subsection) => (
             <Subsection
               key={subsection._id}
-              chapterId={subsection._parent_id}
+              chapterId={chapter._id}
               subsectionId={subsection._id}
             />
           ))}

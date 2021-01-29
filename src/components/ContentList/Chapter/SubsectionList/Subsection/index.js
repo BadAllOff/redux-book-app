@@ -4,7 +4,8 @@ import Subsection from "./Subsection";
 
 const mapStateToProps = (state, ownProps) => {
   const subsection = {
-    subsection: state.chapters.present.entries.find((e) => {
+    subsection: state.chapters.present.entries
+      .find((e) => {
         return e._id === ownProps.chapterId;
       })
       .subsections.find((s) => {

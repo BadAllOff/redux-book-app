@@ -6,9 +6,9 @@ export const addChapter = (title) => ({
   title,
 });
 
-export const addSubsection = (chapId, title) => ({
+export const addSubsection = (chapterId, title) => ({
   type: chaptersActions.ADD_SUBSECTION,
-  chapId,
+  chapterId,
   title,
 });
 export const toggleChapter = (idx) => ({

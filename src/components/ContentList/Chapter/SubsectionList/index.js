@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import * as chaptersActions from "../../../../redux/actionTypes/chapters";
 import SubsectionList from "./SubsectionList";
 
 const filters = {
@@ -19,4 +20,12 @@ const mapStateToProps = (state, ownProps) => {
   return subsections;
 };
 
-export default connect(mapStateToProps)(SubsectionList);
+const mapDispatchToProps = (dispatch) => ({
+  addSubsection: (chapterId, title) =>
+    dispatch({
+      type: chaptersActions.ADD_SUBSECTION,
+      chapterId,
+      title,
+    }),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SubsectionList);

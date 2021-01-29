@@ -16,7 +16,7 @@ const Chapter = ({ chapter, toggleReady }) => {
         />
       </Form.Group>
       <ul>
-        <SubsectionList subsections={chapter.subsections} chapter={chapter} />
+        <SubsectionList chapter={chapter} />
       </ul>
     </li>
   );
