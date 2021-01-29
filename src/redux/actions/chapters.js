@@ -23,7 +23,7 @@ export const toggleSubsection = (idx, sectionIdx) => ({
 
 export const fetchChapters = () => ({
   [API_CALL]: {
-    endpoint: "/chapters",
+    endpoint: "/chapters?fetchchildren=true",
     method: "GET",
     types: [
       chaptersActions.FETCH_CHAPTERS_REQUEST,

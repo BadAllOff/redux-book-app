@@ -5,7 +5,9 @@ const Subsection = ({ chapterId, subsection, toggleSubsectionReady }) => {
   return (
     <li>
       <h6>{subsection.title}</h6>
-      <Form.Group controlId={["readySubsection", chapterId, subsection._id].join("_")}>
+      <Form.Group
+        controlId={["readySubsection", chapterId, subsection._id].join("_")}
+      >
         <Form.Check
           onChange={() => toggleSubsectionReady(chapterId, subsection._id)}
           type="checkbox"

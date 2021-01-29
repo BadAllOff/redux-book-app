@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
-import Subsection from "./Subsection";
+import { Form } from "react-bootstrap";
+import SubsectionList from "./SubsectionList/";
 
-const Chapter = ({chapter, toggleReady, addSubsection, subsections}) => {
+const Chapter = ({ chapter, toggleReady }) => {
   return (
     <li>
       <h4>{chapter.title}</h4>
@@ -15,49 +15,11 @@ const Chapter = ({chapter, toggleReady, addSubsection, subsections}) => {
           checked={chapter.ready}
         />
       </Form.Group>
-      <SubsectionForm chapterId={chapter._id} addSubsection={addSubsection} />
       <ul>
-        {subsections &&
-          subsections.map((subsection) => (
-            <Subsection
-              key={subsection._id}
-              chapterId={chapter._id}
-              subsection={subsection}
-            />
-          ))}
+        <SubsectionList subsections={chapter.subsections} chapter={chapter} />
       </ul>
     </li>
   );
 };
 
 export default Chapter;
-
-const SubsectionForm = ({ idx, addSubsection }) => {
-  return (
-    <fieldset className="border p-2">
-      <legend className="w-auto">Add new subsection</legend>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addSubsection(idx, e.target.title.value);
-          e.target.title.value = "";
-        }}
-      >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="sm" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of subsection
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" size="sm" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </fieldset>
-  );
-};

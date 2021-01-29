@@ -1,16 +1,18 @@
 import axios from "axios";
 export const API_CALL = "API_CALL";
-const ROOT_URL = "https://books-afdc.restdb.io/rest";
-const API_KEY = "5fbd32b94af3f9656800ce48";
+const ROOT_URL = "https://chapters-7962.restdb.io/rest";
+const API_KEY = "6011eda11346a1524ff12eca";
 
-const APICall = ({ method, endpoint }) =>
+const APICallFn = ({ method, endpoint }) =>
   axios({
     url: `${ROOT_URL}${endpoint}`,
     method,
     headers: { "x-apikey": API_KEY },
-  }).then((res) => res.data);
+  }).then((res) => {
+    return res.data;
+  });
 
-const APIMiddleware = store => next => action => {
+const APIMiddleware = (store) => (next) => (action) => {
   if (!action[API_CALL]) return next(action);
 
   const { [API_CALL]: apiCall, ...nextAction } = action;
@@ -22,7 +24,7 @@ const APIMiddleware = store => next => action => {
     ...nextAction,
   });
 
-  return APICall(apiCall)
+  return APICallFn(apiCall)
     .then((response) =>
       store.dispatch({
         type: successType,

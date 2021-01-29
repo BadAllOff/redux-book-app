@@ -3,12 +3,10 @@ import APIMiddleware from "./middleware/API";
 
 import rootReducer from "./reducers";
 
-const store = createStore(
+export default createStore(
   rootReducer,
   compose(
     applyMiddleware(APIMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
-
-export default store;

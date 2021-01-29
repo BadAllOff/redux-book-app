@@ -5,32 +5,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   error: null,
-  entries: [
-    // {
-    //   id: 0,
-    //   title: "First Chapter",
-    //   ready: false,
-    //   subsections: [
-    //     { id: 0, title: "First sub", ready: false },
-    //     { id: 1, title: "Second sub", ready: false },
-    //   ],
-    // },
-    // {
-    //   id: 1,
-    //   title: "Second Chapter",
-    //   ready: false,
-    //   subsections: [
-    //     { id: 0, title: "First sub", ready: true },
-    //     { id: 1, title: "Second sub", ready: false },
-    //   ],
-    // },
-    // {
-    //   id: 2,
-    //   title: "Third Chapter",
-    //   ready: false,
-    //   subsections: [],
-    // },
-  ],
+  entries: [],
 };
 
 export const chapters = function (state = initialState, action) {
@@ -58,16 +33,14 @@ export const chapters = function (state = initialState, action) {
       const stateSub = {
         ...state,
         entries: state.entries.map((chapter) =>
-        chapter._id === action.chapterId
+          chapter._id === action.chapterId
             ? {
                 ...chapter,
-                subsections: chapter.subsections.map(
-                  (subsection) => {
-                    return subsection._id === action.sectionId
-                      ? { ...subsection, ready: !subsection.ready }
-                      : subsection;
-                  }
-                ),
+                subsections: chapter.subsections.map((subsection) => {
+                  return subsection._id === action.sectionId
+                    ? { ...subsection, ready: !subsection.ready }
+                    : subsection;
+                }),
               }
             : chapter
         ),
@@ -76,9 +49,11 @@ export const chapters = function (state = initialState, action) {
       const countSubsections = stateSub.entries.find((e) => {
         return e._id === action.chapterId;
       }).subsections.length;
-      const countReadySubsections = stateSub.entries.find((e) => {
-        return e._id === action.chapterId;
-      }).subsections.filter((s) => s.ready === true).length;
+      const countReadySubsections = stateSub.entries
+        .find((e) => {
+          return e._id === action.chapterId;
+        })
+        .subsections.filter((s) => s.ready === true).length;
 
       const finalState = {
         ...state,
@@ -102,7 +77,7 @@ export const chapters = function (state = initialState, action) {
         ready: false,
         subsections: [],
       });
-      
+
     case chaptersActions.ADD_SUBSECTION:
       return {
         ...state,
