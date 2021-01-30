@@ -1,6 +1,10 @@
 import { connect } from "react-redux";
 import Filter from "./Filter";
 
+const mapStateToProps = (state) => ({
+  currentFilter: state.visibilityFilter,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setFilter: (filter) =>
     dispatch({
@@ -9,4 +13,4 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
