@@ -8,6 +8,7 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import Filter from "./components/Filter";
 import ChaptersCount from "./components/ChaptersCount";
+import Alert from './components/Alert'
 
 import { fetchChapters } from "./redux/actions/chapters";
 
@@ -19,6 +20,7 @@ function App() {
       <Container>
         <h1>Amazing book title</h1>
         <hr />
+        <Alert />
         <Filter />
         <ContentList />
         <ChaptersCount />
