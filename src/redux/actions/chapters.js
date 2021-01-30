@@ -1,9 +1,17 @@
 import * as chaptersActions from "../actionTypes/chapters";
 import { API_CALL } from "../middleware/API";
 
-export const addChapter = (title) => ({
-  type: chaptersActions.ADD_CHAPTER,
-  title,
+export const addChapter = (payload) => ({
+  [API_CALL]: {
+    endpoint: "/chapters",
+    method: "POST",
+    payload,
+    types: [
+      chaptersActions.ADD_CHAPTER_REQUEST,
+      chaptersActions.ADD_CHAPTER_SUCCESS,
+      chaptersActions.ADD_CHAPTER_FAILURE,
+    ],
+  }
 });
 
 export const addSubsection = (chapterId, title) => ({
@@ -23,7 +31,7 @@ export const toggleSubsection = (idx, sectionIdx) => ({
 
 export const fetchChapters = () => ({
   [API_CALL]: {
-    endpoint: "/chapters?fetchchildren=true",
+    endpoint: "/chapters?fetchchildren=true&sort=sort",
     method: "GET",
     types: [
       chaptersActions.FETCH_CHAPTERS_REQUEST,

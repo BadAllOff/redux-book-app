@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ContentList from "./ContentList";
-import * as chaptersActions from "../../redux/actionTypes/chapters";
+import { addChapter } from "../../redux/actions/chapters";
 import { ActionCreators } from "redux-undo";
 
 const mapStateToProps = (state) => ({
@@ -9,11 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addChapter: (title) =>
-    dispatch({
-      type: chaptersActions.ADD_CHAPTER,
-      title,
-    }),
+  addChapter: (payload) => dispatch(addChapter({...payload, subsections: []})),
   undo: () => dispatch(ActionCreators.undo()),
 });
 

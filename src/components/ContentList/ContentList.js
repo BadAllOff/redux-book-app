@@ -33,7 +33,7 @@ const ChapterForm = ({ addChapter }) => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          addChapter(e.target.title.value);
+          addChapter({title: e.target.title.value});
           e.target.title.value = "";
         }}
       >

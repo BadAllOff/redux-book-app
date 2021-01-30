@@ -72,17 +72,6 @@ export const chapters = function (state = initialState, action) {
 
       return finalState;
 
-    case chaptersActions.ADD_CHAPTER:
-      return {
-        ...state,
-        entries: state.entries.concat({
-          _id: uuid(),
-          title: action.title,
-          ready: false,
-          subsections: [],
-        }),
-      };
-
     case chaptersActions.ADD_SUBSECTION:
       return {
         ...state,
@@ -108,6 +97,18 @@ export const chapters = function (state = initialState, action) {
       return { ...initialState, entries: action.response };
 
     case chaptersActions.FETCH_CHAPTERS_FAILURE:
+      return { ...state, isError: true, error: action.error };
+
+    //////////////////////////////////
+    case chaptersActions.ADD_CHAPTER_REQUEST:
+      return { ...state, isLoading: true };
+    case chaptersActions.ADD_CHAPTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        entries: state.entries.concat(action.response),
+      };
+    case chaptersActions.ADD_CHAPTER_FAILURE:
       return { ...state, isError: true, error: action.error };
 
     default:
