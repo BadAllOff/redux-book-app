@@ -1,5 +1,4 @@
 import * as chaptersActions from "../actionTypes/chapters";
-import uuid from "uuid-random";
 
 const initialState = {
   isLoading: false,
@@ -72,44 +71,65 @@ export const chapters = function (state = initialState, action) {
 
       return finalState;
 
-    case chaptersActions.ADD_SUBSECTION:
-      return {
-        ...state,
-        entries: state.entries.map((chapter) =>
-          chapter._id === action.chapterId
-            ? {
-                ...chapter,
-                subsections: chapter.subsections.concat({
-                  _id: uuid(),
-                  title: action.title,
-                  ready: false,
-                }),
-                ready: false,
-              }
-            : chapter
-        ),
-      };
-
     case chaptersActions.FETCH_CHAPTERS_REQUEST:
       return { ...state, isLoading: true };
 
     case chaptersActions.FETCH_CHAPTERS_SUCCESS:
-      return { ...initialState, entries: action.response };
+      return { ...initialState, isError: false, entries: action.response };
 
     case chaptersActions.FETCH_CHAPTERS_FAILURE:
-      return { ...state, isError: true, error: action.error };
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
 
-    //////////////////////////////////
     case chaptersActions.ADD_CHAPTER_REQUEST:
       return { ...state, isLoading: true };
     case chaptersActions.ADD_CHAPTER_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        isError: false,
         entries: state.entries.concat(action.response),
       };
     case chaptersActions.ADD_CHAPTER_FAILURE:
-      return { ...state, isError: true, error: action.error };
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    case chaptersActions.ADD_SUBSECTION_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.ADD_SUBSECTION_SUCCESS:
+      console.log(action);
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.map((chapter) =>
+          chapter._id === action.response._parent_id
+            ? {
+                ...chapter,
+                subsections: chapter.subsections.concat(action.response),
+                ready: false,
+              }
+            : chapter
+        ),
+      };
+
+    case chaptersActions.ADD_SUBSECTION_FAILURE:
+      console.log(action.error.response.data.message);
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
 
     default:
       return state;

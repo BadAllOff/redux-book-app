@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
-import * as chaptersActions from "../../../../redux/actionTypes/chapters";
+import { addSubsection } from "../../../../redux/actions/chapters";
 import SubsectionList from "./SubsectionList";
 
 const filters = {
-    SHOW_ALL: () => true,
-    SHOW_READY: (subsections) => !!subsections.ready,
-    SHOW_NOTREADY: (subsections) => !subsections.ready,
-  };
-  
+  SHOW_ALL: () => true,
+  SHOW_READY: (subsections) => !!subsections.ready,
+  SHOW_NOTREADY: (subsections) => !subsections.ready,
+};
+
 const mapStateToProps = (state, ownProps) => {
   const subsections = {
     subsections: state.chapters.present.entries
@@ -21,11 +21,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addSubsection: (chapterId, title) =>
-    dispatch({
-      type: chaptersActions.ADD_SUBSECTION,
-      chapterId,
-      title,
-    }),
+  addSubsection: (parentId, title) =>
+    dispatch(addSubsection(parentId, { title: title, ready: false })),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SubsectionList);

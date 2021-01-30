@@ -14,10 +14,17 @@ export const addChapter = (payload) => ({
   }
 });
 
-export const addSubsection = (chapterId, title) => ({
-  type: chaptersActions.ADD_SUBSECTION,
-  chapterId,
-  title,
+export const addSubsection = (chapterId, payload) => ({
+  [API_CALL]: {
+    endpoint: `/chapters/${chapterId}/subsections`,
+    method: "POST",
+    payload,
+    types: [
+      chaptersActions.ADD_SUBSECTION_REQUEST,
+      chaptersActions.ADD_SUBSECTION_SUCCESS,
+      chaptersActions.ADD_SUBSECTION_FAILURE,
+    ],
+  },
 });
 export const toggleChapter = (idx) => ({
   type: chaptersActions.TOGGLE_CHAPTER_READY,
