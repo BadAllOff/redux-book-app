@@ -61,7 +61,7 @@ const ModalEdit = ({ chapter, editChapter }) => {
               <Row>
                 <Col>
                   <Form.Group>
-                    <Form.Label>Title</Form.Label>
+                    <Form.Label>Edit Chapter</Form.Label>
                     <Form.Control
                       size="lg"
                       type="text"

@@ -54,6 +54,19 @@ export const addSubsection = (chapterId, payload) => ({
   },
 });
 
+export const editSubsection = (subsection, payload) => ({
+  [API_CALL]: {
+    endpoint: `/subsections/${subsection}`,
+    method: "PATCH",
+    payload,
+    types: [
+      chaptersActions.EDIT_SUBSECTION_REQUEST,
+      chaptersActions.EDIT_SUBSECTION_SUCCESS,
+      chaptersActions.EDIT_SUBSECTION_FAILURE,
+    ],
+  },
+});
+
 //wierd network error when trying to use normal nested route for API
 // + CORS alert
 export const deleteSubsection = (subsectionId) => ({

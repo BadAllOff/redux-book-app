@@ -61,7 +61,6 @@ export const chapters = function (state = initialState, action) {
         error: action.error.response.data.message,
       };
 
-    ///////////////////////////////////////////////////
     case chaptersActions.EDIT_CHAPTER_REQUEST:
       return { ...state, isLoading: true };
 
@@ -83,7 +82,6 @@ export const chapters = function (state = initialState, action) {
         isError: true,
         error: action.error.response.data.message,
       };
-    ///////////////////////////////////////////////////
 
     case chaptersActions.DELETE_CHAPTER_REQUEST:
       return { ...state, isLoading: true };
@@ -127,6 +125,37 @@ export const chapters = function (state = initialState, action) {
       };
 
     case chaptersActions.ADD_SUBSECTION_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    case chaptersActions.EDIT_SUBSECTION_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.EDIT_SUBSECTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.map((chapter) => {
+          if (chapter._id !== action.response._parent_id) return chapter;
+          return {
+            ...chapter,
+            subsections: chapter.subsections.map((subsection) => {
+              if (subsection._id !== action.response._id) return subsection;
+              return {
+                ...subsection,
+                title: action.response.title,
+              };
+            }),
+          };
+        }),
+      };
+
+    case chaptersActions.EDIT_SUBSECTION_FAILURE:
       return {
         ...state,
         isLoading: false,
