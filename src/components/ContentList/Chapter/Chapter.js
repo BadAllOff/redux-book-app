@@ -1,11 +1,18 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import SubsectionList from "./SubsectionList/";
 
-const Chapter = ({ chapter, toggleReady }) => {
+const Chapter = ({ chapter, toggleReady, deleteChapter }) => {
   return (
     <li>
       <h4>{chapter.title}</h4>
+      <Button
+        size="sm"
+        variant="outline-danger"
+        onClick={() => deleteChapter(chapter._id)}
+      >
+        Delete chapter
+      </Button>
       <Form.Group controlId={["ready", chapter._id].join("_")}>
         <Form.Check
           onChange={() => toggleReady(chapter._id)}

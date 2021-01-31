@@ -28,6 +28,110 @@ export const chapters = function (state = initialState, action) {
         ),
       };
 
+    case chaptersActions.FETCH_CHAPTERS_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.FETCH_CHAPTERS_SUCCESS:
+      return { ...initialState, isError: false, entries: action.response };
+
+    case chaptersActions.FETCH_CHAPTERS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    case chaptersActions.ADD_CHAPTER_REQUEST:
+      return { ...state, isLoading: true };
+    case chaptersActions.ADD_CHAPTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.concat(action.response),
+      };
+    case chaptersActions.ADD_CHAPTER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    case chaptersActions.DELETE_CHAPTER_REQUEST:
+      return { ...state, isLoading: true };
+    case chaptersActions.DELETE_CHAPTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.filter(
+          (chapter) => chapter._id !== action.response.result[0]
+        ),
+      };
+    case chaptersActions.DELETE_CHAPTER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    // Subsections
+    case chaptersActions.ADD_SUBSECTION_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.ADD_SUBSECTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.map((chapter) =>
+          chapter._id === action.response._parent_id
+            ? {
+                ...chapter,
+                subsections: chapter.subsections.concat(action.response),
+                ready: false,
+              }
+            : chapter
+        ),
+      };
+
+    case chaptersActions.ADD_SUBSECTION_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
+    case chaptersActions.DELETE_SUBSECTION_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.DELETE_SUBSECTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.map((chapter) => {
+          return {
+            ...chapter,
+            subsections: chapter.subsections.filter(
+              (subsection) => subsection._id !== action.response.result[0]
+            ),
+          };
+        }),
+      };
+
+    case chaptersActions.DELETE_SUBSECTION_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
     case chaptersActions.TOGGLE_SUBSECTION_READY:
       const stateSub = {
         ...state,
@@ -70,66 +174,6 @@ export const chapters = function (state = initialState, action) {
       };
 
       return finalState;
-
-    case chaptersActions.FETCH_CHAPTERS_REQUEST:
-      return { ...state, isLoading: true };
-
-    case chaptersActions.FETCH_CHAPTERS_SUCCESS:
-      return { ...initialState, isError: false, entries: action.response };
-
-    case chaptersActions.FETCH_CHAPTERS_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        error: action.error.response.data.message,
-      };
-
-    case chaptersActions.ADD_CHAPTER_REQUEST:
-      return { ...state, isLoading: true };
-    case chaptersActions.ADD_CHAPTER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        entries: state.entries.concat(action.response),
-      };
-    case chaptersActions.ADD_CHAPTER_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        error: action.error.response.data.message,
-      };
-
-    case chaptersActions.ADD_SUBSECTION_REQUEST:
-      return { ...state, isLoading: true };
-
-    case chaptersActions.ADD_SUBSECTION_SUCCESS:
-      console.log(action);
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        entries: state.entries.map((chapter) =>
-          chapter._id === action.response._parent_id
-            ? {
-                ...chapter,
-                subsections: chapter.subsections.concat(action.response),
-                ready: false,
-              }
-            : chapter
-        ),
-      };
-
-    case chaptersActions.ADD_SUBSECTION_FAILURE:
-      console.log(action.error.response.data.message);
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        error: action.error.response.data.message,
-      };
 
     default:
       return state;

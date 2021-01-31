@@ -11,7 +11,21 @@ export const addChapter = (payload) => ({
       chaptersActions.ADD_CHAPTER_SUCCESS,
       chaptersActions.ADD_CHAPTER_FAILURE,
     ],
-  }
+  },
+});
+
+// child elements should be deleted on serverside
+// I didn't find method in restbio API to do it by request
+export const deleteChapter = (chapterId) => ({
+  [API_CALL]: {
+    endpoint: `/chapters/${chapterId}`,
+    method: "DELETE",
+    types: [
+      chaptersActions.DELETE_CHAPTER_REQUEST,
+      chaptersActions.DELETE_CHAPTER_SUCCESS,
+      chaptersActions.DELETE_CHAPTER_FAILURE,
+    ],
+  },
 });
 
 export const addSubsection = (chapterId, payload) => ({
@@ -26,6 +40,19 @@ export const addSubsection = (chapterId, payload) => ({
     ],
   },
 });
+
+export const deleteSubsection = (subsectionId) => ({
+  [API_CALL]: {
+    endpoint: `/subsections/${subsectionId}`,
+    method: "DELETE",
+    types: [
+      chaptersActions.DELETE_SUBSECTION_REQUEST,
+      chaptersActions.DELETE_SUBSECTION_SUCCESS,
+      chaptersActions.DELETE_SUBSECTION_FAILURE,
+    ],
+  },
+});
+
 export const toggleChapter = (idx) => ({
   type: chaptersActions.TOGGLE_CHAPTER_READY,
   idx,
