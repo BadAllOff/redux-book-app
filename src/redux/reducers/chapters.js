@@ -28,6 +28,25 @@ export const chapters = function (state = initialState, action) {
         ),
       };
 
+    case chaptersActions.ADD_CHAPTER_REQUEST:
+      return { ...state, isLoading: true };
+
+    case chaptersActions.ADD_CHAPTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        entries: state.entries.concat(action.response),
+      };
+
+    case chaptersActions.ADD_CHAPTER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.error.response.data.message,
+      };
+
     case chaptersActions.FETCH_CHAPTERS_REQUEST:
       return { ...state, isLoading: true };
 
@@ -42,25 +61,33 @@ export const chapters = function (state = initialState, action) {
         error: action.error.response.data.message,
       };
 
-    case chaptersActions.ADD_CHAPTER_REQUEST:
+    ///////////////////////////////////////////////////
+    case chaptersActions.EDIT_CHAPTER_REQUEST:
       return { ...state, isLoading: true };
-    case chaptersActions.ADD_CHAPTER_SUCCESS:
+
+    case chaptersActions.EDIT_CHAPTER_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        entries: state.entries.concat(action.response),
+        entries: state.entries.map((chapter) => {
+          if (chapter._id !== action.response._id) return chapter;
+          return { ...chapter, title: action.response.title };
+        }),
       };
-    case chaptersActions.ADD_CHAPTER_FAILURE:
+
+    case chaptersActions.EDIT_CHAPTER_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
         error: action.error.response.data.message,
       };
+    ///////////////////////////////////////////////////
 
     case chaptersActions.DELETE_CHAPTER_REQUEST:
       return { ...state, isLoading: true };
+
     case chaptersActions.DELETE_CHAPTER_SUCCESS:
       return {
         ...state,
@@ -70,6 +97,7 @@ export const chapters = function (state = initialState, action) {
           (chapter) => chapter._id !== action.response.result[0]
         ),
       };
+
     case chaptersActions.DELETE_CHAPTER_FAILURE:
       return {
         ...state,

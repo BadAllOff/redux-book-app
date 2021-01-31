@@ -14,6 +14,19 @@ export const addChapter = (payload) => ({
   },
 });
 
+export const editChapter = (chapterId, payload) => ({
+  [API_CALL]: {
+    endpoint: `/chapters/${chapterId}`,
+    method: "PATCH",
+    payload,
+    types: [
+      chaptersActions.EDIT_CHAPTER_REQUEST,
+      chaptersActions.EDIT_CHAPTER_SUCCESS,
+      chaptersActions.EDIT_CHAPTER_FAILURE,
+    ],
+  },
+});
+
 // child elements should be deleted on serverside
 // I didn't find method in restbio API to do it by request
 export const deleteChapter = (chapterId) => ({
@@ -41,6 +54,8 @@ export const addSubsection = (chapterId, payload) => ({
   },
 });
 
+//wierd network error when trying to use normal nested route for API
+// + CORS alert
 export const deleteSubsection = (subsectionId) => ({
   [API_CALL]: {
     endpoint: `/subsections/${subsectionId}`,
