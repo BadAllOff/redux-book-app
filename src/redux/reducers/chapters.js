@@ -197,7 +197,7 @@ export const chapters = function (state = initialState, action) {
             ? {
                 ...chapter,
                 subsections: chapter.subsections.map((subsection) => {
-                  return subsection._id === action.sectionId
+                  return subsection._id === action.subsectionId
                     ? { ...subsection, ready: !subsection.ready }
                     : subsection;
                 }),

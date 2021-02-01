@@ -85,10 +85,10 @@ export const toggleChapter = (idx) => ({
   type: chaptersActions.TOGGLE_CHAPTER_READY,
   idx,
 });
-export const toggleSubsection = (idx, sectionIdx) => ({
+export const toggleSubsection = (chapterId, sectionId) => ({
   type: chaptersActions.TOGGLE_SUBSECTION_READY,
-  idx,
-  sectionIdx,
+  chapterId,
+  sectionId,
 });
 
 export const fetchChapters = () => ({
