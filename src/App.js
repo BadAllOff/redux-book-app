@@ -13,13 +13,18 @@ import { fetchChapters } from "./redux/actions/chapters";
 
 store.dispatch(fetchChapters());
 
+const routes = [
+  { component: Main, exact: true, strict: true, path: "/" },
+  { component: Chapter, exact: true, strict: true, path: "/chapters/:id" },
+];
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route component={Main} path="/" strict exact />
-          <Route component={Chapter} path="/chapters/:id" strict exact />
+          {routes.map((route, idx) => (
+            <Route {...route} key={idx} />
+          ))}
         </Switch>
       </BrowserRouter>
     </Provider>
