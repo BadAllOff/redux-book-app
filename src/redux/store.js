@@ -1,12 +1,11 @@
-import { createStore, compose, applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import APIMiddleware from "./middleware/API";
 
 import rootReducer from "./reducers";
 
-export default createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(APIMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+export default configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(APIMiddleware),
+  devTools: process.env.NODE_ENV !== "production",
+});
