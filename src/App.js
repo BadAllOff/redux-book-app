@@ -2,13 +2,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import React from "react";
-import { Container } from "react-bootstrap";
-import ContentList from "./components/ContentList";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import Filter from "./components/Filter";
-import ChaptersCount from "./components/ChaptersCount";
-import Alert from './components/Alert'
+import Main from "./components/pages/Main";
+import Chapter from "./components/pages/Chapter";
 
 import { fetchChapters } from "./redux/actions/chapters";
 
@@ -17,14 +16,12 @@ store.dispatch(fetchChapters());
 function App() {
   return (
     <Provider store={store}>
-      <Container>
-        <h1>Amazing book title</h1>
-        <hr />
-        <Alert />
-        <Filter />
-        <ContentList />
-        <ChaptersCount />
-      </Container>
+      <BrowserRouter>
+        <Switch>
+          <Route component={Main} path="/" strict exact />
+          <Route component={Chapter} path="/chapters/:id" strict exact />
+        </Switch>
+      </BrowserRouter>
     </Provider>
   );
 }

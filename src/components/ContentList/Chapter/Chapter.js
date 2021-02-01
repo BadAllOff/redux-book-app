@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button, Modal, Row, Col } from "react-bootstrap";
 import SubsectionList from "./SubsectionList/";
+import { Link } from "react-router-dom";
 
 const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
   return (
     <li>
       <h4>{chapter.title}</h4>
+      <Link to={`/chapters/${chapter._id}`}>preview</Link>
       <Button
         size="sm"
         variant="outline-danger"
