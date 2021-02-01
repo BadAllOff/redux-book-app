@@ -3,7 +3,19 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import Chapter from "./Chapter";
 
 const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
-  if (isLoading) return <div>Loading ... </div>;
+  if (isLoading)
+    return (
+      <div>
+        Loading ...{" "}
+        <Button
+          onClick={() => {
+            undo();
+          }}
+        >
+          Undo
+        </Button>
+      </div>
+    );
   return (
     <>
       <ul>
@@ -33,7 +45,7 @@ const ChapterForm = ({ addChapter }) => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          addChapter({title: e.target.title.value});
+          addChapter({ title: e.target.title.value });
           e.target.title.value = "";
         }}
       >
