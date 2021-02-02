@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, matchPath, Route, Switch } from "react-router-dom";
 
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -11,12 +11,36 @@ import Chapter from "./components/pages/Chapter";
 
 import { fetchChapters } from "./redux/actions/chapters";
 
-store.dispatch(fetchChapters());
-
 const routes = [
-  { component: Main, exact: true, strict: true, path: "/" },
-  { component: Chapter, exact: true, strict: true, path: "/chapters/:id" },
+  {
+    component: Main,
+    exact: true,
+    strict: true,
+    path: "/",
+    loadData: () => {
+      return store.dispatch(fetchChapters());
+    },
+  },
+  {
+    component: Chapter,
+    exact: true,
+    strict: true,
+    path: "/chapters/:id",
+    loadData: (match) => {
+      return store.dispatch(fetchChapters());
+      // return store.dispatch(fetchChapters(match.params.id));
+    },
+  },
 ];
+
+const onLoad = () => {
+  routes.some((route) => {
+    const match = matchPath(window.location.pathname, route);
+    if (match && route.loadData) route.loadData(match);
+    return match;
+  });
+};
+
 function App() {
   return (
     <Provider store={store}>
