@@ -2,7 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import React from "react";
-import { BrowserRouter, matchPath, Route, Switch } from "react-router-dom";
+import { Router, matchPath, Route, Switch } from "react-router-dom";
+import createBrowserHistory from "history/createBrowserHistory";
 
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -10,6 +11,8 @@ import Main from "./components/pages/Main";
 import Chapter from "./components/pages/Chapter";
 
 import { fetchChapters } from "./redux/actions/chapters";
+
+const history = createBrowserHistory();
 
 const routes = [
   {
@@ -26,9 +29,8 @@ const routes = [
     exact: true,
     strict: true,
     path: "/chapters/:id",
-    loadData: (match) => {
+    loadData: () => {
       return store.dispatch(fetchChapters());
-      // return store.dispatch(fetchChapters(match.params.id));
     },
   },
 ];
@@ -41,16 +43,20 @@ const onLoad = () => {
   });
 };
 
+onLoad();
+
+history.listen(() => onLoad());
+
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           {routes.map((route, idx) => (
             <Route {...route} key={idx} />
           ))}
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 }
