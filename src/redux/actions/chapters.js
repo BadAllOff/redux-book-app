@@ -1,45 +1,82 @@
+import axios from "axios";
 import * as chaptersActions from "../actionTypes/chapters";
 import { API_CALL } from "../middleware/API";
 
-export const addChapter = (payload) => ({
-  [API_CALL]: {
-    endpoint: "/chapters",
-    method: "POST",
-    payload,
-    types: [
-      chaptersActions.ADD_CHAPTER_REQUEST,
-      chaptersActions.ADD_CHAPTER_SUCCESS,
-      chaptersActions.ADD_CHAPTER_FAILURE,
-    ],
-  },
-});
+export const addChapter = (payload) => (dispatch) => {
+  dispatch({
+    type: chaptersActions.ADD_CHAPTER_REQUEST,
+  });
 
-export const editChapter = (chapterId, payload) => ({
-  [API_CALL]: {
-    endpoint: `/chapters/${chapterId}`,
+  return axios({
+    url: `https://chapters-7962.restdb.io/rest/chapters`,
+    method: "POST",
+    data: payload,
+    headers: { "x-apikey": "6011eda11346a1524ff12eca" },
+  })
+    .then((res) => {
+      return dispatch({
+        type: chaptersActions.ADD_CHAPTER_SUCCESS,
+        response: res.data,
+      });
+    })
+    .catch((res) =>
+      dispatch({
+        type: chaptersActions.ADD_CHAPTER_FAILURE,
+        response: res.data,
+      })
+    );
+};
+
+export const editChapter = (chapterId, payload) => (dispatch) => {
+  dispatch({
+    type: chaptersActions.EDIT_CHAPTER_REQUEST,
+  });
+
+  return axios({
+    url: `https://chapters-7962.restdb.io/rest/chapters/${chapterId}`,
     method: "PATCH",
-    payload,
-    types: [
-      chaptersActions.EDIT_CHAPTER_REQUEST,
-      chaptersActions.EDIT_CHAPTER_SUCCESS,
-      chaptersActions.EDIT_CHAPTER_FAILURE,
-    ],
-  },
-});
+    data: payload,
+    headers: { "x-apikey": "6011eda11346a1524ff12eca" },
+  })
+    .then((res) => {
+      return dispatch({
+        type: chaptersActions.EDIT_CHAPTER_SUCCESS,
+        response: res.data,
+      });
+    })
+    .catch((res) =>
+      dispatch({
+        type: chaptersActions.EDIT_CHAPTER_FAILURE,
+        response: res.data,
+      })
+    );
+};
 
 // child elements should be deleted on serverside
 // I didn't find method in restbio API to do it by request
-export const deleteChapter = (chapterId) => ({
-  [API_CALL]: {
-    endpoint: `/chapters/${chapterId}`,
+export const deleteChapter = (chapterId) => (dispatch) => {
+  dispatch({
+    type: chaptersActions.DELETE_CHAPTER_REQUEST,
+  });
+
+  return axios({
+    url: `https://chapters-7962.restdb.io/rest/chapters/${chapterId}`,
     method: "DELETE",
-    types: [
-      chaptersActions.DELETE_CHAPTER_REQUEST,
-      chaptersActions.DELETE_CHAPTER_SUCCESS,
-      chaptersActions.DELETE_CHAPTER_FAILURE,
-    ],
-  },
-});
+    headers: { "x-apikey": "6011eda11346a1524ff12eca" },
+  })
+    .then((res) => {
+      return dispatch({
+        type: chaptersActions.DELETE_CHAPTER_SUCCESS,
+        response: res.data,
+      });
+    })
+    .catch((res) =>
+      dispatch({
+        type: chaptersActions.DELETE_CHAPTER_FAILURE,
+        response: res.data,
+      })
+    );
+};
 
 export const addSubsection = (chapterId, payload) => ({
   [API_CALL]: {
@@ -91,14 +128,26 @@ export const toggleSubsection = (chapterId, sectionId) => ({
   sectionId,
 });
 
-export const fetchChapters = () => ({
-  [API_CALL]: {
-    endpoint: "/chapters?fetchchildren=true&sort=sort",
+export const fetchChapters = () => (dispatch) => {
+  dispatch({
+    type: chaptersActions.FETCH_CHAPTERS_REQUEST,
+  });
+
+  return axios({
+    url: `https://chapters-7962.restdb.io/rest/chapters?fetchchildren=true&sort=sort`,
     method: "GET",
-    types: [
-      chaptersActions.FETCH_CHAPTERS_REQUEST,
-      chaptersActions.FETCH_CHAPTERS_SUCCESS,
-      chaptersActions.FETCH_CHAPTERS_FAILURE,
-    ],
-  },
-});
+    headers: { "x-apikey": "6011eda11346a1524ff12eca" },
+  })
+    .then((res) =>
+      dispatch({
+        type: chaptersActions.FETCH_CHAPTERS_SUCCESS,
+        response: res.data,
+      })
+    )
+    .catch((res) =>
+      dispatch({
+        type: chaptersActions.FETCH_CHAPTERS_FAILURE,
+        response: res.data,
+      })
+    );
+};
