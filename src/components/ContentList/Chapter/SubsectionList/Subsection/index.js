@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import * as chaptersActions from "../../../../../redux/actionTypes/chapters";
 import {
-  deleteSubsection,
   editSubsection,
-} from "../../../../../redux/actions/chapters";
+  deleteSubsection,
+  toggleSubsection,
+} from "../../../../../redux/slices/chapters";
 import Subsection from "./Subsection";
 
 const mapStateToProps = (state, ownProps) => {
@@ -21,14 +21,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   toggleSubsectionReady: (chapterId, subsectionId) =>
-    dispatch({
-      type: chaptersActions.TOGGLE_SUBSECTION_READY,
-      chapterId,
-      subsectionId,
-    }),
+    dispatch(
+      toggleSubsection({
+        chapterId,
+        subsectionId,
+      })
+    ),
   deleteSubsection: (subsectionId) => dispatch(deleteSubsection(subsectionId)),
-  editSubsection: (subsection, payload) =>
-    dispatch(editSubsection(subsection, payload)),
+  editSubsection: (subsectionId, payload) =>
+    dispatch(editSubsection({ subsectionId: subsectionId, payload: payload })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Subsection);

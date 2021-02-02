@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addSubsection } from "../../../../redux/actions/chapters";
+import { addSubsection } from "../../../../redux/slices/chapters";
 import SubsectionList from "./SubsectionList";
 
 const filters = {
@@ -22,6 +22,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addSubsection: (parentId, title) =>
-    dispatch(addSubsection(parentId, { title: title, ready: false })),
+    dispatch(
+      addSubsection({
+        chapterId: parentId,
+        payload: { title: title, ready: false },
+      })
+    ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SubsectionList);
