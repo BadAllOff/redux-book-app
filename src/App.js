@@ -52,9 +52,9 @@ function App() {
     <Provider store={store}>
       <Router history={history}>
         <Switch>
-          {routes.map((route, idx) => (
-            <Route {...route} key={idx} />
-          ))}
+            {routes.map((route, idx) => (
+              <Route {...route} key={idx} />
+            ))}
         </Switch>
       </Router>
     </Provider>

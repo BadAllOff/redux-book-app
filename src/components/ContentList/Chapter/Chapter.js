@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Modal, Row, Col } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import SubsectionList from "./SubsectionList/";
 import { Link } from "react-router-dom";
 
@@ -8,23 +8,31 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
     <li>
       <h4>{chapter.title}</h4>
       <Link to={`/chapters/${chapter._id}`}>preview</Link>
-      <Button
-        size="sm"
-        variant="outline-danger"
+      <button
+        class="btn btn-outline-danger btn-sm"
         onClick={() => deleteChapter(chapter._id)}
       >
         Delete chapter
-      </Button>
+      </button>
       <ModalEdit chapter={chapter} editChapter={editChapter}></ModalEdit>
-      <Form.Group controlId={["ready", chapter._id].join("_")}>
-        <Form.Check
-          onChange={() => toggleReady(chapter._id)}
-          type="checkbox"
-          label="Mark as ready"
-          name="ready"
-          checked={chapter.ready}
-        />
-      </Form.Group>
+      <div class="form-group">
+        <div class="form-check">
+          <input
+            onChange={() => toggleReady(chapter._id)}
+            name="ready"
+            type="checkbox"
+            id={["ready", chapter._id].join("_")}
+            class="form-check-input"
+          />
+          <label
+            title=""
+            for={["ready", chapter._id].join("_")}
+            class="form-check-label"
+          >
+            Mark as ready
+          </label>
+        </div>
+      </div>
       <ul>
         <SubsectionList chapter={chapter} />
       </ul>
@@ -42,9 +50,9 @@ const ModalEdit = ({ chapter, editChapter }) => {
 
   return (
     <>
-      <Button size="sm" variant="outline-success" onClick={handleShow}>
+      <button className="btn btn-outline-success btn-sm" onClick={handleShow}>
         Edit chapter
-      </Button>
+      </button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -53,39 +61,39 @@ const ModalEdit = ({ chapter, editChapter }) => {
         <Modal.Body>
           <fieldset className="border p-2">
             <legend className="w-auto">Add new chapter</legend>
-            <Form
+            <form
               onSubmit={(e) => {
                 e.preventDefault();
                 editChapter(chapter._id, { title: e.target.title.value });
                 e.target.title.value = "";
               }}
             >
-              <Row>
-                <Col>
-                  <Form.Group>
-                    <Form.Label>Edit Chapter</Form.Label>
-                    <Form.Control
-                      size="lg"
-                      type="text"
+              <div>
+                <div>
+                  <div className="form-group">
+                    <label className="form-label">Edit Chapter</label>
+                    <input
                       name="title"
-                      defaultValue={chapter.title}
-                    />
-                    <Form.Text className="text-muted">
+                      type="text"
+                      className="form-control form-control-lg"
+                      value={chapter.title}
+                    ></input>
+                    <small className="text-muted form-text">
                       enter the new title of chapter
-                    </Form.Text>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Button variant="primary" type="submit" onClick={handleClose}>
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
                 Save Changes
-              </Button>
-            </Form>
+              </button>
+            </form>
           </fieldset>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <button type="button" class="btn btn-secondary">
             Close
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>

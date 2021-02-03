@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
 import Chapter from "./Chapter";
 
 const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
@@ -7,13 +6,13 @@ const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
     return (
       <div>
         Loading ...{" "}
-        <Button
+        <button
           onClick={() => {
             undo();
           }}
         >
           Undo
-        </Button>
+        </button>
       </div>
     );
   return (
@@ -25,13 +24,13 @@ const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
           ))}
       </ul>
       <ChapterForm addChapter={addChapter} />
-      <Button
+      <button
         onClick={() => {
           undo();
         }}
       >
         Undo
-      </Button>
+      </button>
     </>
   );
 };
@@ -42,28 +41,28 @@ const ChapterForm = ({ addChapter }) => {
   return (
     <fieldset className="border p-2">
       <legend className="w-auto">Add new chapter</legend>
-      <Form
+      <form
         onSubmit={(e) => {
           e.preventDefault();
           addChapter({ title: e.target.title.value });
           e.target.title.value = "";
         }}
       >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="lg" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of chapter
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" type="submit">
+        <div>
+          <div className="form-group">
+            <label>Title</label>
+            <input
+              className="form-control form-control-lg"
+              type="text"
+              name="title"
+            />
+            <small className="text-muted">enter the title of chapter</small>
+          </div>
+        </div>
+        <button variant="primary" type="submit">
           Submit
-        </Button>
-      </Form>
+        </button>
+      </form>
     </fieldset>
   );
 };

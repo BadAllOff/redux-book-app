@@ -5,4 +5,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Simple app to count book chapters and subsections:
 
 Using:
-Redux
+Redux, Redux-toolkit, react-routerz etc.
