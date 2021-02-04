@@ -5,11 +5,13 @@ import Alert from "../../Alert";
 import HeaderNavigation from "../../HeaderNavigation/HeaderNavigation";
 import UndoBtn from "../../UndoBtn/UndoBtn";
 import GoBackBtn from "../../GoBackBtn/GoBackBtn";
+import SideMenu from "../../SideMenu";
 
 const Main = () => {
   return (
     <div className="main">
-      <HeaderNavigation></HeaderNavigation>
+      <SideMenu />
+      <HeaderNavigation />
       <div className="content-wrapper">
         <div className="content">
           <h1>Amazing book title</h1>

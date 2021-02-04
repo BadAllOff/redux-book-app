@@ -5,13 +5,13 @@
   grid-template: 70px auto 100px / repeat(12, 1fr);
   justify-content: center;
   grid-template-areas:
-    "h h h h h h h h h h h h"
-    "c c c c c c c c c c c c"
-    "f f f f f f f f f f f f";
+    "s s s h h h h h h h h h"
+    "s s s c c c c c c c c c"
+    "s s s f f f f f f f f f";
 }
 .header-navigation {
   grid-column: 1 / -1;
-  background-color: #092a5b;
+  background-color: var(--secondary-color);
   margin: 0;
   grid-area: h;
 }
@@ -22,9 +22,39 @@
 .content {
   max-width: 800px;
   padding: 2em;
-  margin: 0 auto;
+  margin: 0 0 0 3em;
+}
+.side-menu-wrapper {
+  background-color: var(--secondary-color);
+  grid-area: s;
+}
+.side-menu .header-logo {
+  height: 70px;
+  line-height: 70px;
+  font-weight: bolder;
+  text-align: center;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  font-family: "Press Start 2P", cursive;
 }
 
+.side-menu .navigation .navigation-item {
+  padding: 10px;
+}
+
+.side-menu .navigation .navigation-item a {
+  font-weight: 200;
+  text-decoration: none;
+  border: none;
+}
+.side-menu .navigation .navigation-item .selected {
+  border-bottom: 1px solid var(--light-color);
+}
+
+.side-menu .loading-status {
+  height: 20px;
+  text-align: center;
+}
 .footer {
   grid-area: f;
   background-color: #000000;
@@ -151,4 +181,3 @@
     opacity: 1;
   }
 }
-

@@ -4,11 +4,13 @@ import HeaderNavigation from "../../HeaderNavigation/HeaderNavigation";
 import Chapter from "../../ContentList/Chapter";
 import UndoBtn from "../../UndoBtn";
 import GoBackBtn from "../../GoBackBtn";
+import SideMenu from "../../SideMenu";
 
 const ChapterPage = ({ chapter, isLoading }) => {
   return (
     <div className="main">
-      <HeaderNavigation></HeaderNavigation>
+      <SideMenu />
+      <HeaderNavigation />
       <div className="content-wrapper">
         <div className="content">
           {isLoading ? (
