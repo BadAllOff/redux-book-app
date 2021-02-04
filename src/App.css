@@ -39,7 +39,6 @@
 }
 
 .side-menu .navigation .navigation-item {
-  padding: 10px;
 }
 
 .side-menu .navigation .navigation-item a {
@@ -47,8 +46,11 @@
   text-decoration: none;
   border: none;
 }
-.side-menu .navigation .navigation-item .selected {
-  border-bottom: 1px solid var(--light-color);
+
+.side-menu .navigation .navigation-item .selected,
+.side-menu .navigation .navigation-item:hover a {
+  border-bottom: 4px dotted var(--light-color);
+  padding-bottom: 9px;
 }
 
 .side-menu .loading-status {

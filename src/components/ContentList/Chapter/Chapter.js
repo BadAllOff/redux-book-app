@@ -10,10 +10,9 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
     : { textColor: "text-fail", message: "not ready" };
   return (
     <>
-      <h1>
-        {chapter.title} {<span className={textColor}>({message})</span>}
-      </h1>
-      <ReadyCheckInput onChange={toggleReady} chapter={chapter}/>
+      <h1>{chapter.title}</h1>
+      {<div className={textColor}>({message})</div>}
+      <ReadyCheckInput onChange={toggleReady} chapter={chapter} />
       <Filter />
       <hr />
       <button

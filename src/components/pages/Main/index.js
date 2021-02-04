@@ -14,7 +14,7 @@ const Main = () => {
       <HeaderNavigation />
       <div className="content-wrapper">
         <div className="content">
-          <h1>Amazing book title</h1>
+          <h1>Write your own book</h1>
           <hr />
           <Alert />
           <ContentList />
