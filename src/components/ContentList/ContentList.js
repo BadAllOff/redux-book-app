@@ -5,8 +5,9 @@ const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
   if (isLoading)
     return (
       <div>
-        Loading ...{" "}
+        Loading ... <br />
         <button
+          className="btn btn-outline"
           onClick={() => {
             undo();
           }}
@@ -25,6 +26,7 @@ const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
       </ul>
       <ChapterForm addChapter={addChapter} />
       <button
+        className="btn btn-outline"
         onClick={() => {
           undo();
         }}
@@ -39,8 +41,8 @@ export default ContentList;
 
 const ChapterForm = ({ addChapter }) => {
   return (
-    <fieldset className="border p-2">
-      <legend className="w-auto">Add new chapter</legend>
+    <fieldset>
+      <legend>Add new chapter</legend>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -59,7 +61,7 @@ const ChapterForm = ({ addChapter }) => {
             <small className="text-muted">enter the title of chapter</small>
           </div>
         </div>
-        <button variant="primary" type="submit">
+        <button className="btn btn-outline" type="submit">
           Submit
         </button>
       </form>

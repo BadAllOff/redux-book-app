@@ -1,0 +1,32 @@
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.alert {
+  width: 100%;
+}
+.error {
+  border: 1px solid red;
+  background-color: #f24949;
+  color: white;
+}
+.btn {
+    padding: 5px 15px;
+    margin: 0 1px;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.btn-outline{
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    border: 1px solid var(--light-color);
+}
+
+.btn-outline:hover{
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border: 1px solid var(--light-color);
+}

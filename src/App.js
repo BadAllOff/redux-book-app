@@ -1,4 +1,5 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import './ress.css'
+import './utils.css'
 import "./App.css";
 
 import React from "react";

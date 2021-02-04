@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
 import Subsection from "./Subsection";
 
 const SubsectionList = ({ chapter, subsections, addSubsection }) => {
@@ -24,30 +23,26 @@ export default SubsectionList;
 
 const SubsectionForm = ({ chapterId, addSubsection }) => {
   return (
-    <fieldset className="border p-2">
-      <legend className="w-auto">Add new subsection</legend>
-      <Form
+    <fieldset>
+      <legend>Add new subsection</legend>
+      <form
         onSubmit={(e) => {
           e.preventDefault();
           addSubsection(chapterId, e.target.title.value);
           e.target.title.value = "";
         }}
       >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="sm" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of subsection
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" size="sm" type="submit">
+        <div className="form-group">
+          <label className="form-label">Title</label>
+          <input className="form-control" type="text" name="title" />
+          <small class="text-muted form-text">
+            enter the title of subsection
+          </small>
+        </div>
+        <button className="btn btn-outline" type="submit">
           Submit
-        </Button>
-      </Form>
+        </button>
+      </form>
     </fieldset>
   );
 };

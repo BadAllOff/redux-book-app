@@ -54,7 +54,7 @@ export function Modal({ children, defaultOpened = false }, ref) {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-outline"
               onClick={handleClose}
             >
               Close

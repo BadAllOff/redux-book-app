@@ -9,14 +9,18 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
   return (
     <li>
       <h4>{chapter.title}</h4>
-      <Link to={`/chapters/${chapter._id}`}>preview</Link>
+      <Link to={`/chapters/${chapter._id}`}>
+        <button className="btn btn-outline">Preview</button>
+      </Link>
       <button
-        className="btn btn-outline-danger btn-sm"
+        className="btn btn-outline"
         onClick={() => deleteChapter(chapter._id)}
       >
         Delete chapter
       </button>
-      <button onClick={() => modal.current.open()}>Open Modal</button>
+      <button className="btn btn-outline" onClick={() => modal.current.open()}>
+        Open Modal
+      </button>
       <MyModal ref={modal}>
         <ModalEdit chapter={chapter} editChapter={editChapter}></ModalEdit>
       </MyModal>
@@ -60,7 +64,9 @@ const ModalEdit = ({ chapter, editChapter }) => {
         <div>
           <div>
             <div className="form-group">
-              <label className="form-label">Write in new title for chapter</label>
+              <label className="form-label">
+                Write in new title for chapter
+              </label>
               <input
                 name="title"
                 type="text"
@@ -73,7 +79,7 @@ const ModalEdit = ({ chapter, editChapter }) => {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-outline">
           Save Changes
         </button>
       </form>

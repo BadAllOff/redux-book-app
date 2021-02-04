@@ -11,13 +11,12 @@ const Subsection = ({
   return (
     <li>
       <h6>{subsection.title}</h6>
-      <Button
-        size="sm"
-        variant="outline-danger"
+      <button
+        className="btn btn-outline"
         onClick={() => deleteSubsection(subsection._id)}
       >
         Delete subsection
-      </Button>
+      </button>
       <ModalEdit
         subsection={subsection}
         editSubsection={editSubsection}
@@ -47,9 +46,9 @@ const ModalEdit = ({ subsection, editSubsection }) => {
 
   return (
     <>
-      <Button size="sm" variant="outline-success" onClick={handleShow}>
+      <button className="btn btn-outline" onClick={handleShow}>
         Edit subsection
-      </Button>
+      </button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -58,33 +57,29 @@ const ModalEdit = ({ subsection, editSubsection }) => {
         <Modal.Body>
           <fieldset className="border p-2">
             <legend className="w-auto">Edit Subsection</legend>
-            <Form
+            <form
               onSubmit={(e) => {
                 e.preventDefault();
                 editSubsection(subsection._id, { title: e.target.title.value });
                 e.target.title.value = "";
               }}
             >
-              <Row>
-                <Col>
-                  <Form.Group>
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
-                      size="lg"
-                      type="text"
-                      name="title"
-                      defaultValue={subsection.title}
-                    />
-                    <Form.Text className="text-muted">
-                      enter the new title of subsection
-                    </Form.Text>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Button variant="primary" type="submit" onClick={handleClose}>
+              <div className="form-group">
+                <label className="form-label">Title</label>
+                <input
+                  name="title"
+                  type="text"
+                  className="form-control form-control-lg"
+                  defaultValue={subsection.title}
+                />
+                <small className="text-muted form-text">
+                  enter the new title of subsection
+                </small>
+              </div>
+              <button className="btn btn-outline" onClick={handleClose}>
                 Save Changes
-              </Button>
-            </Form>
+              </button>
+            </form>
           </fieldset>
         </Modal.Body>
         <Modal.Footer>
