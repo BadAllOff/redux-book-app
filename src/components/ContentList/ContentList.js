@@ -1,38 +1,32 @@
 import React from "react";
-import Chapter from "./Chapter";
+import { Link } from "react-router-dom";
+import UndoBtn from "../UndoBtn";
 
-const ContentList = ({ chapters, addChapter, undo, isLoading }) => {
+const ContentList = ({ chapters, addChapter, isLoading }) => {
   if (isLoading)
     return (
       <div>
         Loading ... <br />
-        <button
-          className="btn btn-outline"
-          onClick={() => {
-            undo();
-          }}
-        >
-          Undo
-        </button>
+        <hr />
       </div>
     );
   return (
     <>
       <ul>
         {chapters &&
-          chapters.map((chapter) => (
-            <Chapter key={chapter._id} chapter={chapter} />
-          ))}
+          chapters.map((chapter) => {
+            return (
+              <li key={chapter._id}>
+                <h2>{chapter.title}</h2>
+                <Link to={`/chapters/${chapter._id}`}>
+                  <button className="btn btn-outline">Preview</button>
+                </Link>
+              </li>
+            );
+          })}
       </ul>
       <ChapterForm addChapter={addChapter} />
-      <button
-        className="btn btn-outline"
-        onClick={() => {
-          undo();
-        }}
-      >
-        Undo
-      </button>
+      <hr />
     </>
   );
 };

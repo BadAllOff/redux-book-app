@@ -9,7 +9,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Main from "./components/pages/Main";
-import Chapter from "./components/pages/Chapter";
+import ChapterPage from "./components/pages/ChapterPage";
 
 import { fetchChapters } from "./redux/slices/chapters";
 
@@ -26,7 +26,7 @@ const routes = [
     },
   },
   {
-    component: Chapter,
+    component: ChapterPage,
     exact: true,
     strict: true,
     path: "/chapters/:id",

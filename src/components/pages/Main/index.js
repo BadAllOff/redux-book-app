@@ -1,9 +1,10 @@
 import React from "react";
 import ContentList from "../../ContentList";
-import Filter from "../../Filter";
 import ChaptersCount from "../../ChaptersCount";
 import Alert from "../../Alert";
 import HeaderNavigation from "../../HeaderNavigation/HeaderNavigation";
+import UndoBtn from "../../UndoBtn/UndoBtn";
+import GoBackBtn from "../../GoBackBtn/GoBackBtn";
 
 const Main = () => {
   return (
@@ -14,12 +15,13 @@ const Main = () => {
           <h1>Amazing book title</h1>
           <hr />
           <Alert />
-          {/* <Filter /> */}
           <ContentList />
+          <GoBackBtn />
+          <UndoBtn />
           <ChaptersCount />
         </div>
       </div>
-      <div className='footer'></div>
+      <div className="footer"></div>
     </div>
   );
 };

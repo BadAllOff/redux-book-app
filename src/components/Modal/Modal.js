@@ -44,7 +44,6 @@ export function Modal({ children, defaultOpened = false }, ref) {
       <div className="modal">
         <div className="modal-content">
           <div className="modal-header">
-            <div className="modal-title h4">Edit chapter </div>
             <button type="button" className="close" onClick={handleClose}>
               <span aria-hidden="true">×</span>
               <span className="sr-only">Close</span>

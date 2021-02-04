@@ -4,7 +4,6 @@ import Subsection from "./Subsection";
 const SubsectionList = ({ chapter, subsections, addSubsection }) => {
   return (
     <>
-      <SubsectionForm chapterId={chapter._id} addSubsection={addSubsection} />
       <ul>
         {subsections &&
           subsections.map((subsection) => (
@@ -15,6 +14,7 @@ const SubsectionList = ({ chapter, subsections, addSubsection }) => {
             />
           ))}
       </ul>
+      <SubsectionForm chapterId={chapter._id} addSubsection={addSubsection} />
     </>
   );
 };
@@ -35,7 +35,7 @@ const SubsectionForm = ({ chapterId, addSubsection }) => {
         <div className="form-group">
           <label className="form-label">Title</label>
           <input className="form-control" type="text" name="title" />
-          <small class="text-muted form-text">
+          <small className="text-muted form-text">
             enter the title of subsection
           </small>
         </div>

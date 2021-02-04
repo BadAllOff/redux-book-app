@@ -277,7 +277,6 @@ progress {
 [aria-disabled] {
   cursor: default;
 }
-/* Remove border lines for fieldset */
-fieldset {
-  border: none;
+hr {
+  margin: 10px 0px;
 }

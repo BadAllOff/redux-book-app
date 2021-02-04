@@ -1,3 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+:root {
+  --primary-color: #047aed;
+  --secondary-color: #1c3fa8;
+  --dark-color: #002240;
+  --light-color: #f4f4f4;
+  --success-color: #5cb85c;
+  --error-color: #d9534f;
+  --input-bg-color-light: #f4f4f4;
+  --input-value-color-light: #000000;
+}
+body {
+  background-color: var(--dark-color);
+  font-family: "Roboto", sans-serif;
+  color: var(--light-color);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  color: var(--light-color);
+}
+input[type="text"],
+input[type="text"] textarea {
+  background-color: var(--input-bg-color);
+  color: var(--input-value-color);
+  outline: none;
+  border-bottom: 1px solid var(--light-color);
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  background-color: var(--input-bg-color);
+  color: var(--input-value-color);
+  outline: none;
+}
+/* Remove border lines for fieldset */
+fieldset {
+  border: 1px solid var(--primary-color);
+  padding: 10px;
+}
+
 .show {
   display: block;
 }
@@ -7,26 +51,50 @@
 .alert {
   width: 100%;
 }
+.text-success {
+  color: var(--success-color);
+}
+.text-fail {
+  color: var(--error-color);
+}
 .error {
   border: 1px solid red;
   background-color: #f24949;
   color: white;
 }
 .btn {
-    padding: 5px 15px;
-    margin: 0 1px;
-    background-color: var(--light-color);
-    color: var(--dark-color);
+  padding: 5px 15px;
+  margin: 0 1px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
 }
 
-.btn-outline{
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    border: 1px solid var(--light-color);
+.btn-outline {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 1px solid var(--light-color);
 }
 
-.btn-outline:hover{
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    border: 1px solid var(--light-color);
+.btn-outline:hover {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border: 1px solid var(--light-color);
+}
+.form-group {
+}
+.form-group .form-label {
+  display: block;
+}
+.form-group .form-control {
+  display: block;
+  width: 100%;
+}
+.form-group .form-check-input{
+  margin: 10px 20px;
+}
+.text-muted {
+  font-size: 0.8em;
+}
+.form-text {
+  display: block;
 }
