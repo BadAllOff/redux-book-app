@@ -22,5 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-workspace.code-workspace
 .eslintcache
+
+workspace.code-workspace

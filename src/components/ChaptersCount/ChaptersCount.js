@@ -7,7 +7,7 @@ const ChaptersCount = ({
   return (
     <>
       <div>
-        {chaptersReadyCount} from {chapters.length} Chapters are ready.
+        {chaptersReadyCount} from {chapters} Chapters are ready.
       </div>
       <div>
         {subsectionsReadyCount} from {subsectionsCount} Subsections are ready.

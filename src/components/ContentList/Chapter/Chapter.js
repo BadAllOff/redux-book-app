@@ -9,7 +9,7 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
     ? { textColor: "text-success", message: "ready" }
     : { textColor: "text-fail", message: "not ready" };
   return (
-    <>
+    <div>
       <h1>{chapter.title}</h1>
       {<div className={textColor}>({message})</div>}
       <ReadyCheckInput onChange={toggleReady} chapter={chapter} />
@@ -29,7 +29,7 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
       </MyModal>
 
       <SubsectionList chapter={chapter} />
-    </>
+    </div>
   );
 };
 
