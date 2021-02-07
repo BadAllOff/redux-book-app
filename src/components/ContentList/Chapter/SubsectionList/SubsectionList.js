@@ -5,7 +5,7 @@ import FormGroup from "../../../FormGroup";
 
 const SubsectionList = ({ chapter, subsections, addSubsection }) => {
   return (
-    <>
+    <div>
       <ul>
         {subsections &&
           subsections.map((subsection) => (
@@ -17,7 +17,7 @@ const SubsectionList = ({ chapter, subsections, addSubsection }) => {
           ))}
       </ul>
       <SubsectionForm chapterId={chapter._id} addSubsection={addSubsection} />
-    </>
+    </div>
   );
 };
 
@@ -30,7 +30,11 @@ const SubsectionForm = ({ chapterId, addSubsection }) => {
     e.target.title.value = "";
   };
   return (
-    <FormGroup onSubmit={onSubmit} submitBtnText='Create subsection' legend="Add new subsection">
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Create subsection"
+      legend="Add new subsection"
+    >
       <Field
         name="title"
         label="Title for the new subsection"

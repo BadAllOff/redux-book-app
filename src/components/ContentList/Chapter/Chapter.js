@@ -24,11 +24,11 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
         value={chapter.ready}
         onChange={() => toggleReady(chapter._id)}
         label="Mark as ready"
-        htmlFor={["ready", chapter._id].join("_")}
+        htmlFor={`ready_${chapter._id}`}
         options={{
           className: "form-check-input",
           checked: chapter.ready,
-          id: ["ready", chapter._id].join("_"),
+          id: `ready_${chapter._id}`,
         }}
       />
 

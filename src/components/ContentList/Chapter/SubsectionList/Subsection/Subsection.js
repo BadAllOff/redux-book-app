@@ -36,18 +36,17 @@ const Subsection = ({
           editSubsection={editSubsection}
         ></ModalEdit>
       </MyModal>
-
       <Checkbox
         type="checkbox"
         name="ready"
         onChange={() => toggleSubsectionReady(chapterId, subsection._id)}
         label="Mark as ready"
-        htmlFor={["readySubsection", chapterId, subsection._id].join("_")}
+        htmlFor={`readySubsection_${chapterId}_${subsection._id}`}
         options={{
           className: "form-check-input",
           defaultValue: subsection.ready,
           checked: subsection.ready,
-          id: ["readySubsection", chapterId, subsection._id].join("_"),
+          id: `readySubsection_${chapterId}_${subsection._id}`,
         }}
       />
     </li>
