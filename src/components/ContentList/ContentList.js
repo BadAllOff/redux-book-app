@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Field from "../Field";
+import FormGroup from "../FormGroup";
 
 const ContentList = ({ chapters, addChapter, isLoading }) => {
   if (isLoading)
@@ -33,31 +35,26 @@ const ContentList = ({ chapters, addChapter, isLoading }) => {
 export default ContentList;
 
 const ChapterForm = ({ addChapter }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addChapter({ title: e.target.title.value });
+    e.target.title.value = "";
+  };
+
   return (
-    <fieldset>
-      <legend>Add new chapter</legend>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addChapter({ title: e.target.title.value });
-          e.target.title.value = "";
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Create new chapter"
+      legend="Add new chapter"
+    >
+      <Field
+        name="title"
+        label="Title for the new chapter"
+        hint="enter the title of the new chapter"
+        options={{
+          className: "form-control form-control-lg",
         }}
-      >
-        <div>
-          <div className="form-group">
-            <label>Title</label>
-            <input
-              className="form-control form-control-lg"
-              type="text"
-              name="title"
-            />
-            <small className="text-muted">enter the title of chapter</small>
-          </div>
-        </div>
-        <button className="btn btn-outline" type="submit">
-          Submit
-        </button>
-      </form>
-    </fieldset>
+      />
+    </FormGroup>
   );
 };

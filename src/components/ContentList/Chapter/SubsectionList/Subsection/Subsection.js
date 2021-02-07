@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import MyModal from "../../../../Modal/Modal";
+import Field from "../../../../Field";
+import FormGroup from "../../../../FormGroup";
 
 const Subsection = ({
   chapterId,
@@ -56,30 +58,26 @@ const Subsection = ({
 export default Subsection;
 
 const ModalEdit = ({ subsection, editSubsection }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    editSubsection(subsection._id, { title: e.target.title.value });
+    e.target.title.value = "";
+  };
   return (
-    <fieldset>
-      <legend>Edit Subsection</legend>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          editSubsection(subsection._id, { title: e.target.title.value });
-          e.target.title.value = "";
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Save Changes"
+      legend="Edit Subsection"
+    >
+      <Field
+        name="title"
+        label="Edit title for subsection"
+        hint="enter the new title of subsection"
+        options={{
+          defaultValue: subsection.title,
+          className: "form-control form-control-lg",
         }}
-      >
-        <div className="form-group">
-          <label className="form-label">Title</label>
-          <input
-            name="title"
-            type="text"
-            className="form-control form-control-lg"
-            defaultValue={subsection.title}
-          />
-          <small className="text-muted form-text">
-            enter the new title of subsection
-          </small>
-        </div>
-        <button className="btn btn-outline">Save Changes</button>
-      </form>
-    </fieldset>
+      />
+    </FormGroup>
   );
 };

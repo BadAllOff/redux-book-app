@@ -1,5 +1,7 @@
 import React from "react";
 import Subsection from "./Subsection";
+import Field from "../../../Field";
+import FormGroup from "../../../FormGroup";
 
 const SubsectionList = ({ chapter, subsections, addSubsection }) => {
   return (
@@ -22,27 +24,21 @@ const SubsectionList = ({ chapter, subsections, addSubsection }) => {
 export default SubsectionList;
 
 const SubsectionForm = ({ chapterId, addSubsection }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addSubsection(chapterId, e.target.title.value);
+    e.target.title.value = "";
+  };
   return (
-    <fieldset>
-      <legend>Add new subsection</legend>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addSubsection(chapterId, e.target.title.value);
-          e.target.title.value = "";
+    <FormGroup onSubmit={onSubmit} submitBtnText='Create subsection' legend="Add new subsection">
+      <Field
+        name="title"
+        label="Title for the new subsection"
+        hint="enter the title of the new subsection"
+        options={{
+          className: "form-control form-control-lg",
         }}
-      >
-        <div className="form-group">
-          <label className="form-label">Title</label>
-          <input className="form-control" type="text" name="title" />
-          <small className="text-muted form-text">
-            enter the title of subsection
-          </small>
-        </div>
-        <button className="btn btn-outline" type="submit">
-          Submit
-        </button>
-      </form>
-    </fieldset>
+      />
+    </FormGroup>
   );
 };

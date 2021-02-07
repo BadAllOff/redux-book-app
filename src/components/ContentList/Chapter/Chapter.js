@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import MyModal from "../../Modal/Modal";
 import SubsectionList from "./SubsectionList/";
 import Filter from "../../Filter";
+import Checkbox from "../../Checkbox";
+import Field from "../../Field";
+import FormGroup from "../../FormGroup";
 
 const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
   const modal = useRef(null);
@@ -12,7 +15,19 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
     <div>
       <h1>{chapter.title}</h1>
       {<div className={textColor}>({message})</div>}
-      <ReadyCheckInput onChange={toggleReady} chapter={chapter} />
+      <Checkbox
+        type="checkbox"
+        name="ready"
+        value={chapter.ready}
+        onChange={() => toggleReady(chapter._id)}
+        label="Mark as ready"
+        htmlFor={["ready", chapter._id].join("_")}
+        options={{
+          className: "form-check-input",
+          checked: chapter.ready,
+          id: ["ready", chapter._id].join("_"),
+        }}
+      />
       <Filter />
       <hr />
       <button
@@ -36,62 +51,26 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
 export default Chapter;
 
 const ModalEdit = ({ chapter, editChapter }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    editChapter(chapter._id, { title: e.target.title.value });
+    e.target.title.value = "";
+  };
   return (
-    <fieldset>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          editChapter(chapter._id, { title: e.target.title.value });
-          e.target.title.value = "";
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Save Changes"
+      legend="Edit chapter's title"
+    >
+      <Field
+        name="title"
+        label="Write in new title for the chapter"
+        hint="enter the new title of the chapter"
+        options={{
+          defaultValue: chapter.title,
+          className: "form-control form-control-lg",
         }}
-      >
-        <div>
-          <div>
-            <div className="form-group">
-              <label className="form-label">
-                Write in new title for chapter
-              </label>
-              <input
-                name="title"
-                type="text"
-                className="form-control form-control-lg"
-                defaultValue={chapter.title}
-              />
-              <small className="text-muted form-text">
-                enter the new title of chapter
-              </small>
-            </div>
-          </div>
-        </div>
-        <button type="submit" className="btn btn-outline">
-          Save Changes
-        </button>
-      </form>
-    </fieldset>
-  );
-};
-
-const ReadyCheckInput = ({ chapter, onChange }) => {
-  return (
-    <div className="form-group">
-      <div className="form-check">
-        <input
-          onChange={() => onChange(chapter._id)}
-          name="ready"
-          type="checkbox"
-          id={["ready", chapter._id].join("_")}
-          className="form-check-input"
-          defaultValue={chapter.ready}
-          checked={chapter.ready}
-        />
-        <label
-          title=""
-          htmlFor={["ready", chapter._id].join("_")}
-          className="form-check-label"
-        >
-          Mark as ready
-        </label>
-      </div>
-    </div>
+      />
+    </FormGroup>
   );
 };
