@@ -1,15 +1,15 @@
 import React from "react";
+import Button from "../Button";
 
-const UndoBtn = ({undo}) => {
+const UndoBtn = ({ undo }) => {
   return (
-    <button
-      className="btn btn-outline"
+    <Button
+      btnText="Undo"
       onClick={() => {
         undo();
       }}
-    >
-      Undo
-    </button>
+      options={{ className: "btn btn-outline" }}
+    />
   );
 };
 

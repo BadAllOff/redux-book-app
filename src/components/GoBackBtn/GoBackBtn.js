@@ -1,13 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import Button from "../Button";
 
 const GoBackBtn = () => {
   let history = useHistory();
 
   return (
-    <button className="btn btn-outline" onClick={history.goBack}>
-      Go Back
-    </button>
+    <Button
+      btnText="Go back"
+      onClick={history.goBack}
+      options={{ className: "btn btn-outline" }}
+    />
   );
 };
 

@@ -5,6 +5,7 @@ import Filter from "../../Filter";
 import Checkbox from "../../Checkbox";
 import Field from "../../Field";
 import FormGroup from "../../FormGroup";
+import Button from "../../Button";
 
 const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
   const modal = useRef(null);
@@ -14,7 +15,9 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
   return (
     <div>
       <h1>{chapter.title}</h1>
-      {<div className={textColor}>({message})</div>}
+
+      <div className={textColor}>({message})</div>
+
       <Checkbox
         type="checkbox"
         name="ready"
@@ -28,17 +31,22 @@ const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
           id: ["ready", chapter._id].join("_"),
         }}
       />
+
       <Filter />
       <hr />
-      <button
-        className="btn btn-outline"
+
+      <Button
+        btnText="Delete chapter"
         onClick={() => deleteChapter(chapter._id)}
-      >
-        Delete chapter
-      </button>
-      <button className="btn btn-outline" onClick={() => modal.current.open()}>
-        Edit chapter
-      </button>
+        options={{ className: "btn btn-outline" }}
+      />
+
+      <Button
+        btnText="Edit chapter"
+        onClick={() => modal.current.open()}
+        options={{ className: "btn btn-outline" }}
+      />
+
       <MyModal ref={modal}>
         <ModalEdit chapter={chapter} editChapter={editChapter}></ModalEdit>
       </MyModal>

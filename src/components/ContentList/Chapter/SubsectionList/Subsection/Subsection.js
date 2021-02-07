@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import MyModal from "../../../../Modal/Modal";
 import Field from "../../../../Field";
 import FormGroup from "../../../../FormGroup";
+import Button from "../../../../Button";
+import Checkbox from "../../../../Checkbox";
 
 const Subsection = ({
   chapterId,
@@ -15,15 +17,19 @@ const Subsection = ({
   return (
     <li>
       <h2>{subsection.title}</h2>
-      <button
-        className="btn btn-outline"
+
+      <Button
+        btnText="Delete subsection"
         onClick={() => deleteSubsection(subsection._id)}
-      >
-        Delete subsection
-      </button>
-      <button className="btn btn-outline" onClick={() => modal.current.open()}>
-        Edit subsection
-      </button>
+        options={{ className: "btn btn-outline" }}
+      />
+
+      <Button
+        btnText="Edit subsection"
+        onClick={() => modal.current.open()}
+        options={{ className: "btn btn-outline" }}
+      />
+
       <MyModal ref={modal}>
         <ModalEdit
           subsection={subsection}
@@ -31,26 +37,19 @@ const Subsection = ({
         ></ModalEdit>
       </MyModal>
 
-      <div className="form-group">
-        <div className="form-check">
-          <input
-            onChange={() => toggleSubsectionReady(chapterId, subsection._id)}
-            name="ready"
-            type="checkbox"
-            id={["readySubsection", chapterId, subsection._id].join("_")}
-            className="form-check-input"
-            defaultValue={subsection.ready}
-            checked={subsection.ready}
-          />
-          <label
-            title=""
-            htmlFor={["readySubsection", chapterId, subsection._id].join("_")}
-            className="form-check-label"
-          >
-            Mark as ready
-          </label>
-        </div>
-      </div>
+      <Checkbox
+        type="checkbox"
+        name="ready"
+        onChange={() => toggleSubsectionReady(chapterId, subsection._id)}
+        label="Mark as ready"
+        htmlFor={["readySubsection", chapterId, subsection._id].join("_")}
+        options={{
+          className: "form-check-input",
+          defaultValue: subsection.ready,
+          checked: subsection.ready,
+          id: ["readySubsection", chapterId, subsection._id].join("_"),
+        }}
+      />
     </li>
   );
 };

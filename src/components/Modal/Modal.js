@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import { createPortal } from "react-dom";
+import Button from "../Button";
 
 const modalElement = document.getElementById("modal-root");
 
@@ -51,13 +52,11 @@ export function Modal({ children, defaultOpened = false }, ref) {
           </div>
           <div className="modal-body">{children}</div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-outline"
+            <Button
+              btnText="Close"
               onClick={handleClose}
-            >
-              Close
-            </button>
+              options={{ className: "btn btn-outline" }}
+            />
           </div>
         </div>
       </div>
