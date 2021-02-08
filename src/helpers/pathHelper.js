@@ -1,0 +1,1 @@
+export const chapterPath = (id) => `/chapters/${id}`;

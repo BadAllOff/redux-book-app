@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { chapterPath } from "../../helpers/pathHelper";
 
 const SideMenu = ({ isLoading, chapters }) => {
   return (
@@ -23,10 +24,11 @@ const SideMenu = ({ isLoading, chapters }) => {
               return (
                 <li key={chapter._id} className=" pl-2 pt-2 navigation-item">
                   <NavLink
-                    to={`/chapters/${chapter._id}`}
+                    to={chapterPath(chapter._id)}
                     activeClassName="selected"
                   >
-                    {chapter.ready&& <span className='text-success'>✔</span>}{chapter.title}
+                    {chapter.ready && <span className="text-success">✔</span>}
+                    {chapter.title}
                   </NavLink>
                 </li>
               );
