@@ -13,7 +13,6 @@ const Checkbox = ({
       <input
         type="checkbox"
         name={name}
-        value={value}
         onChange={onChange}
         {...options}
       />

@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Field from "../Field";
 import FormGroup from "../FormGroup";
+import Button from '../Button'
 
-const ContentList = ({ chapters, addChapter, isLoading }) => {
+const ContentList = ({ chapters, addChapter, deleteChapter, isLoading }) => {
   if (isLoading)
     return (
       <div>
@@ -22,6 +23,11 @@ const ContentList = ({ chapters, addChapter, isLoading }) => {
                 <Link to={`/chapters/${chapter._id}`}>
                   <button className="btn btn-outline">Preview</button>
                 </Link>
+                <Button
+                  btnText="Delete chapter"
+                  onClick={() => deleteChapter(chapter._id)}
+                  options={{ className: "btn btn-outline" }}
+                />
               </li>
             );
           })}

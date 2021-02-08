@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const instance = axios.create({
+  baseURL: "https://chapters-7962.restdb.io/rest",
+  timeout: 3000,
+  headers: { "x-apikey": "6011eda11346a1524ff12eca" },
+});
+
 const initialState = {
   isLoading: false,
   isError: false,
@@ -9,88 +15,58 @@ const initialState = {
 };
 
 export const fetchChapters = createAsyncThunk("chapters/fetchAll", async () => {
-  const response = await axios({
-    url: `https://chapters-7962.restdb.io/rest/chapters?fetchchildren=true&sort=sort`,
-    method: "GET",
-    headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-  });
-
-  return response.data;
+  return instance
+    .get("/chapters", { params: { fetchchildren: true, sort: "sort" } })
+    .then((res) => res.data);
 });
 
 export const addChapter = createAsyncThunk(
   "chapters/addChapter",
   async (payload) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/chapters`,
-      method: "POST",
-      data: payload,
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance.post("/chapters", payload).then((res) => res.data);
   }
 );
 
 export const editChapter = createAsyncThunk(
   "chapters/editChapter",
   async (arg) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/chapters/${arg.chapterId}`,
-      method: "PATCH",
-      data: arg.payload,
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance
+      .patch(`/chapters/${arg.chapterId}`, arg.payload)
+      .then((res) => res.data);
   }
 );
 
 export const deleteChapter = createAsyncThunk(
   "chapters/deleteChapter",
   async (chapterId) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/chapters/${chapterId}`,
-      method: "DELETE",
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance.delete(`/chapters/${chapterId}`).then((res) => res.data);
   }
 );
 
 export const addSubsection = createAsyncThunk(
   "chapters/addSubsection",
   async (arg) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/chapters/${arg.chapterId}/subsections`,
-      method: "POST",
-      data: arg.payload,
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance
+      .post(`/chapters/${arg.chapterId}/subsections`, arg.payload)
+      .then((res) => res.data);
   }
 );
 
 export const editSubsection = createAsyncThunk(
   "chapters/editSubsection",
   async (arg) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/subsections/${arg.subsectionId}`,
-      method: "PATCH",
-      data: arg.payload,
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance
+      .patch(`/subsections/${arg.subsectionId}`, arg.payload)
+      .then((res) => res.data);
   }
 );
 
 export const deleteSubsection = createAsyncThunk(
   "chapters/deleteSubsection",
   async (subsectionId) => {
-    const response = await axios({
-      url: `https://chapters-7962.restdb.io/rest/subsections/${subsectionId}`,
-      method: "DELETE",
-      headers: { "x-apikey": "6011eda11346a1524ff12eca" },
-    });
-    return response.data;
+    return instance
+      .delete(`/subsections/${subsectionId}`)
+      .then((res) => res.data);
   }
 );
 

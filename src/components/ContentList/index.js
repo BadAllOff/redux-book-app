@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ContentList from "./ContentList";
-import { addChapter } from "../../redux/slices/chapters";
+import { addChapter, deleteChapter } from "../../redux/slices/chapters";
 import { ActionCreators } from "redux-undo";
 
 const mapStateToProps = (state) => ({
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addChapter: (payload) => dispatch(addChapter({...payload, subsections: []})),
+  deleteChapter: (chapterId) => dispatch(deleteChapter(chapterId)),
   undo: () => dispatch(ActionCreators.undo()),
 });
 
