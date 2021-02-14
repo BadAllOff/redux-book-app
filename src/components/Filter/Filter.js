@@ -1,45 +1,38 @@
 import React from "react";
-import { Row, Container, Button } from "react-bootstrap";
 
-const Filter = ({ setFilter }) => {
+const Filter = ({ setFilter, currentFilter }) => {
+  const status = {
+    SHOW_ALL: "Show all",
+    SHOW_READY: "Show ready",
+    SHOW_NOTREADY: "Show not ready",
+  };
+
   return (
-    <Container>
-      <Row>
-        <fieldset className="border p-2">
-          <legend className="w-auto">Subsections</legend>
+    <fieldset>
+      <legend>Subsections</legend>
 
+      {Object.entries(status).map((key) => {
+        return (
           <FilterButton
+            key={key[0]}
+            active={currentFilter === key[0] ? "active" : ""}
             onClick={() => {
-              setFilter("SHOW_ALL");
+              setFilter(key[0]);
             }}
           >
-            Show all
+            {key[1]}
           </FilterButton>
-          <FilterButton
-            onClick={() => {
-              setFilter("SHOW_READY");
-            }}
-          >
-            Show ready
-          </FilterButton>
-          <FilterButton
-            onClick={() => {
-              setFilter("SHOW_NOTREADY");
-            }}
-          >
-            Show not ready
-          </FilterButton>
-        </fieldset>
-      </Row>
-    </Container>
+        );
+      })}
+    </fieldset>
   );
 };
 
-const FilterButton = ({ onClick, children }) => {
+const FilterButton = ({ onClick, children, active }) => {
   return (
-    <Button variant="outline-dark" size="sm" onClick={onClick}>
+    <button className={`btn btn-outline ${active}`} onClick={onClick}>
       {children}
-    </Button>
+    </button>
   );
 };
 

@@ -1,24 +1,63 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import './ress.css'
+import './utils.css'
 import "./App.css";
 
 import React from "react";
-import { Container } from "react-bootstrap";
-import ContentList from "./components/ContentList";
+import { Router, matchPath, Route, Switch } from "react-router-dom";
+import createBrowserHistory from "history/createBrowserHistory";
+
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import Filter from "./components/Filter";
-import ChaptersCount from "./components/ChaptersCount";
+import Main from "./components/pages/Main";
+import ChapterPage from "./components/pages/ChapterPage";
+
+import { fetchChapters } from "./redux/slices/chapters";
+
+const history = createBrowserHistory();
+
+const routes = [
+  {
+    component: Main,
+    exact: true,
+    strict: true,
+    path: "/",
+    loadData: () => {
+      return store.dispatch(fetchChapters());
+    },
+  },
+  {
+    component: ChapterPage,
+    exact: true,
+    strict: true,
+    path: "/chapters/:id",
+    loadData: () => {
+      return store.dispatch(fetchChapters());
+    },
+  },
+];
+
+const onLoad = () => {
+  routes.some((route) => {
+    const match = matchPath(window.location.pathname, route);
+    if (match && route.loadData) route.loadData(match);
+    return match;
+  });
+};
+
+onLoad();
+
+history.listen(() => onLoad());
 
 function App() {
   return (
     <Provider store={store}>
-      <Container>
-        <h1>Amazing book title</h1>
-        <hr />
-        <Filter />
-        <ContentList />
-        <ChaptersCount />
-      </Container>
+      <Router history={history}>
+        <Switch>
+            {routes.map((route, idx) => (
+              <Route {...route} key={idx} />
+            ))}
+        </Switch>
+      </Router>
     </Provider>
   );
 }

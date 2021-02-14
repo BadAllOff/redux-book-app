@@ -1,17 +1,39 @@
 import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
-import Chapter from "./Chapter";
+import { Link } from "react-router-dom";
+import Field from "../Field";
+import FormGroup from "../FormGroup";
+import Button from '../Button'
 
-const ContentList = ({ chapters, addChapter }) => {
+const ContentList = ({ chapters, addChapter, deleteChapter, isLoading }) => {
+  if (isLoading)
+    return (
+      <div>
+        Loading ... <br />
+        <hr />
+      </div>
+    );
   return (
     <>
       <ul>
         {chapters &&
-          chapters.map((chapter, idx) => (
-            <Chapter key={idx} chapter={chapter} idx={idx} />
-          ))}
+          chapters.map((chapter) => {
+            return (
+              <li key={chapter._id}>
+                <h2>{chapter.title}</h2>
+                <Link to={`/chapters/${chapter._id}`}>
+                  <button className="btn btn-outline">Preview</button>
+                </Link>
+                <Button
+                  btnText="Delete chapter"
+                  onClick={() => deleteChapter(chapter._id)}
+                  options={{ className: "btn btn-outline" }}
+                />
+              </li>
+            );
+          })}
       </ul>
       <ChapterForm addChapter={addChapter} />
+      <hr />
     </>
   );
 };
@@ -19,31 +41,26 @@ const ContentList = ({ chapters, addChapter }) => {
 export default ContentList;
 
 const ChapterForm = ({ addChapter }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addChapter({ title: e.target.title.value });
+    e.target.title.value = "";
+  };
+
   return (
-    <fieldset className="border p-2">
-      <legend className="w-auto">Add new chapter</legend>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addChapter(e.target.title.value);
-          e.target.title.value = "";
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Create new chapter"
+      legend="Add new chapter"
+    >
+      <Field
+        name="title"
+        label="Title for the new chapter"
+        hint="enter the title of the new chapter"
+        options={{
+          className: "form-control form-control-lg",
         }}
-      >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="lg" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of chapter
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </fieldset>
+      />
+    </FormGroup>
   );
 };

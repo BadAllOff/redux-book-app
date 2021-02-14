@@ -1,63 +1,84 @@
-import React from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
-import Subsection from "./Subsection";
+import React, { useRef } from "react";
+import MyModal from "../../Modal/Modal";
+import SubsectionList from "./SubsectionList/";
+import Filter from "../../Filter";
+import Checkbox from "../../Checkbox";
+import Field from "../../Field";
+import FormGroup from "../../FormGroup";
+import Button from "../../Button";
 
-const Chapter = ({chapter, idx, toggleReady, addSubsection, subsections}) => {
+const Chapter = ({ chapter, toggleReady, deleteChapter, editChapter }) => {
+  const modal = useRef(null);
+  const { textColor, message } = chapter.ready
+    ? { textColor: "text-success", message: "ready" }
+    : { textColor: "text-fail", message: "not ready" };
   return (
-    <li>
-      <h4>{chapter.title}</h4>
-      <Form.Group controlId={["ready", idx].join("_")}>
-        <Form.Check
-          onChange={() => toggleReady(idx)}
-          type="checkbox"
-          label="Mark as ready"
-          name="ready"
-          checked={chapter.ready}
-        />
-      </Form.Group>
-      <SubsectionForm idx={idx} addSubsection={addSubsection} />
-      <ul>
-        {subsections &&
-          subsections.map((subSection) => (
-            <Subsection
-              key={subSection.id}
-              idx={idx}
-              subSection={subSection}
-            />
-          ))}
-      </ul>
-    </li>
+    <div>
+      <h1>{chapter.title}</h1>
+
+      <div className={textColor}>({message})</div>
+
+      <Checkbox
+        type="checkbox"
+        name="ready"
+        value={chapter.ready}
+        onChange={() => toggleReady(chapter._id)}
+        label="Mark as ready"
+        htmlFor={`ready_${chapter._id}`}
+        options={{
+          className: "form-check-input",
+          checked: chapter.ready,
+          id: `ready_${chapter._id}`,
+        }}
+      />
+
+      <Filter />
+      <hr />
+
+      <Button
+        btnText="Delete chapter"
+        onClick={() => deleteChapter(chapter._id)}
+        options={{ className: "btn btn-outline" }}
+      />
+
+      <Button
+        btnText="Edit chapter"
+        onClick={() => modal.current.open()}
+        options={{ className: "btn btn-outline" }}
+      />
+
+      <MyModal ref={modal}>
+        <ModalEdit chapter={chapter} editChapter={editChapter}></ModalEdit>
+      </MyModal>
+
+      <SubsectionList chapter={chapter} />
+    </div>
   );
 };
 
 export default Chapter;
 
-const SubsectionForm = ({ idx, addSubsection }) => {
+const ModalEdit = ({ chapter, editChapter }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    editChapter(chapter._id, { title: e.target.title.value });
+    e.target.title.value = "";
+  };
   return (
-    <fieldset className="border p-2">
-      <legend className="w-auto">Add new subsection</legend>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addSubsection(idx, e.target.title.value);
-          e.target.title.value = "";
+    <FormGroup
+      onSubmit={onSubmit}
+      submitBtnText="Save Changes"
+      legend="Edit chapter's title"
+    >
+      <Field
+        name="title"
+        label="Write in new title for the chapter"
+        hint="enter the new title of the chapter"
+        options={{
+          defaultValue: chapter.title,
+          className: "form-control form-control-lg",
         }}
-      >
-        <Row>
-          <Col md="6">
-            <Form.Group>
-              <Form.Label>Title</Form.Label>
-              <Form.Control size="sm" type="text" name="title" />
-              <Form.Text className="text-muted">
-                enter the title of subsection
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" size="sm" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </fieldset>
+      />
+    </FormGroup>
   );
 };
